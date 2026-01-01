@@ -16,16 +16,16 @@
 
 import Foundation
 
-struct QEMUArgument: Hashable, Identifiable, Codable {
+public struct QEMUArgument: Hashable, Identifiable, Codable {
     /// Argument string passed to QEMU
-    var string: String
+    public var string: String
     
     /// Optional URL resource that must be accessed
     var fileUrls: [URL]?
     
-    let id = UUID()
+    public var id: String { string }
     
-    init(_ string: String) {
+    public init(_ string: String) {
         self.string = string
     }
     
@@ -34,15 +34,17 @@ struct QEMUArgument: Hashable, Identifiable, Codable {
         fileUrls = fragment.fileUrls
     }
     
-    init(from decoder: Decoder) throws {
-        string = try String(from: decoder)
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        string = try container.decode(String.self)
     }
     
-    func encode(to encoder: Encoder) throws {
-        try string.encode(to: encoder)
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(string)
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         id.hash(into: &hasher)
     }
 }

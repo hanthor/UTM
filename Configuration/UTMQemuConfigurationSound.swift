@@ -17,25 +17,25 @@
 import Foundation
 
 /// Settings for single audio device
-struct UTMQemuConfigurationSound: Codable, Identifiable {
+public struct UTMQemuConfigurationSound: Codable, Identifiable {
     /// Hardware model to emulate.
-    var hardware: any QEMUSoundDevice = QEMUSoundDevice_x86_64.AC97
+    public var hardware: any QEMUSoundDevice = QEMUSoundDevice_x86_64.AC97
     
-    let id = UUID()
+    public var id: String = UUID().uuidString
     
     enum CodingKeys: String, CodingKey {
         case hardware = "Hardware"
     }
     
-    init() {
+    public init() {
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         hardware = try values.decode(AnyQEMUConstant.self, forKey: .hardware)
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(hardware.asAnyQEMUConstant(), forKey: .hardware)
     }
@@ -71,6 +71,7 @@ extension UTMQemuConfigurationSound {
 // MARK: - Conversion of old config format
 
 extension UTMQemuConfigurationSound {
+    #if os(macOS)
     init?(migrating oldConfig: UTMLegacyQemuConfiguration) {
         self.init()
         guard oldConfig.soundEnabled else {
@@ -82,4 +83,5 @@ extension UTMQemuConfigurationSound {
             hardware = AnyQEMUConstant(rawValue: hardwareStr)!
         }
     }
+    #endif
 }

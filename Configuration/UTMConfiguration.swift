@@ -18,7 +18,7 @@ import Foundation
 
 private let kUTMBundleConfigFilename = "config.plist"
 
-protocol UTMConfiguration: Codable, ObservableObject {
+public protocol UTMConfiguration: Codable, ObservableObject {
     associatedtype Drive: UTMConfigurationDrive
     static var oldestVersion: Int { get }
     static var currentVersion: Int { get }
@@ -29,7 +29,7 @@ protocol UTMConfiguration: Codable, ObservableObject {
     func saveData(to dataURL: URL) async throws -> [URL]
 }
 
-extension UTMConfiguration {
+public extension UTMConfiguration {
     static var oldestVersion: Int { 4 }
     static var currentVersion: Int { 4 }
 }
@@ -40,13 +40,13 @@ extension CodingUserInfoKey {
     }
 }
 
-enum UTMBackend: String, CaseIterable, Codable {
+public enum UTMBackend: String, CaseIterable, Codable {
     case unknown = "Unknown"
     case apple = "Apple"
     case qemu = "QEMU"
 }
 
-enum UTMConfigurationError: Error {
+public enum UTMConfigurationError: Error {
     case versionTooLow
     case versionTooHigh
     case invalidConfigurationValue(String)
@@ -59,12 +59,13 @@ enum UTMConfigurationError: Error {
 }
 
 extension UTMConfigurationError: LocalizedError {
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .versionTooLow: return NSLocalizedString("This configuration is too old and is not supported.", comment: "UTMConfiguration")
         case .versionTooHigh: return NSLocalizedString("This configuration is saved with a newer version of UTM and is not compatible with this version.", comment: "UTMConfiguration")
         case .invalidConfigurationValue(let value): return String.localizedStringWithFormat(NSLocalizedString("An invalid value of '%@' is used in the configuration file.", comment: "UTMConfiguration"), value)
         case .invalidBackend: return NSLocalizedString("The backend for this configuration is not supported.", comment: "UTMConfiguration")
+        case .invalidDataURL: return NSLocalizedString("Invalid data URL.", comment: "UTMConfiguration")
         case .driveAlreadyExists(let url): return String.localizedStringWithFormat(NSLocalizedString("The drive '%@' already exists and cannot be created.", comment: "UTMConfiguration"), url.lastPathComponent)
         default: return NSLocalizedString("An internal error has occurred.", comment: "UTMConfiguration")
         }
@@ -89,16 +90,18 @@ private final class UTMConfigurationStub: Decodable {
     }
 }
 
-extension UTMConfiguration {
+public extension UTMConfiguration {
     static var dataDirectoryName: String { "Data" }
     
     static func load(from packageURL: URL) throws -> any UTMConfiguration {
+        #if os(macOS)
         let scopedAccess = packageURL.startAccessingSecurityScopedResource()
         defer {
             if scopedAccess {
                 packageURL.stopAccessingSecurityScopedResource()
             }
         }
+        #endif
         let dataURL = packageURL.appendingPathComponent(Self.dataDirectoryName)
         let configURL = packageURL.appendingPathComponent(kUTMBundleConfigFilename)
         let configData = try Data(contentsOf: configURL)
@@ -118,11 +121,15 @@ extension UTMConfiguration {
                 }
             }
             #endif
+            #if os(macOS)
             // is it a legacy QEMU config?
             let dict = try NSDictionary(contentsOf: configURL, error: ()) as! [AnyHashable : Any]
             let name = ConcreteVirtualMachine.virtualMachineName(for: packageURL)
             let legacy = UTMLegacyQemuConfiguration(dictionary: dict, name: name, path: packageURL)
             return UTMQemuConfiguration(migrating: legacy)
+            #else
+            throw UTMConfigurationError.invalidBackend
+            #endif
         } else if stub.backend == .qemu {
             // QEMU configuration
             return try decoder.decode(UTMQemuConfiguration.self, from: configData)
@@ -170,10 +177,14 @@ extension UTMConfiguration {
     ///   - customCopy: If non-nil, a custom copy function is invoked
     /// - Returns: URL of the updated item in the bundle
     static func copyItemIfChanged(from sourceURL: URL, to destFolderURL: URL, customCopy: ((_ sourceURL: URL, _ destURL: URL) async throws -> URL)? = nil) async throws -> URL {
-        _ = sourceURL.startAccessingSecurityScopedResource()
+        #if os(macOS)
+        let scopedAccess = sourceURL.startAccessingSecurityScopedResource()
         defer {
-            sourceURL.stopAccessingSecurityScopedResource()
+            if scopedAccess {
+                sourceURL.stopAccessingSecurityScopedResource()
+            }
         }
+        #endif
         let fileManager = FileManager.default
         let destURL = destFolderURL.appendingPathComponent(sourceURL.lastPathComponent)
         // check if both are same file

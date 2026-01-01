@@ -17,18 +17,18 @@
 import Foundation
 
 /// Directory and clipboard sharing settings
-struct UTMQemuConfigurationSharing: Codable {
+public struct UTMQemuConfigurationSharing: Codable {
     /// SPICE or virtfs sharing.
-    var directoryShareMode: QEMUFileShareMode = .none
+    public var directoryShareMode: QEMUFileShareMode = .none
     
-    /// Sharing should be read only
-    var isDirectoryShareReadOnly: Bool = false
+    /// Path to the directory to share.
+    public var directoryShareUrl: URL?
     
-    /// The directory to share. Not saved.
-    var directoryShareUrl: URL?
+    /// Read only setting for the directory share.
+    public var isDirectoryShareReadOnly: Bool = false
     
     /// SPICE clipboard sharing.
-    var hasClipboardSharing: Bool = false
+    public var hasClipboardSharing: Bool = false
     
     enum CodingKeys: String, CodingKey {
         case directoryShareMode = "DirectoryShareMode"
@@ -36,17 +36,17 @@ struct UTMQemuConfigurationSharing: Codable {
         case hasClipboardSharing = "ClipboardSharing"
     }
     
-    init() {
+    public init() {
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         directoryShareMode = try values.decode(QEMUFileShareMode.self, forKey: .directoryShareMode)
         isDirectoryShareReadOnly = try values.decode(Bool.self, forKey: .isDirectoryShareReadOnly)
         hasClipboardSharing = try values.decode(Bool.self, forKey: .hasClipboardSharing)
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(directoryShareMode, forKey: .directoryShareMode)
         try container.encode(isDirectoryShareReadOnly, forKey: .isDirectoryShareReadOnly)
@@ -57,7 +57,7 @@ struct UTMQemuConfigurationSharing: Codable {
 // MARK: - Default construction
 
 extension UTMQemuConfigurationSharing {
-    init(forArchitecture architecture: QEMUArchitecture, target: any QEMUTarget) {
+    public init(forArchitecture architecture: QEMUArchitecture, target: any QEMUTarget) {
         self.init()
         let rawTarget = target.rawValue
         if !architecture.hasAgentSupport {
@@ -84,6 +84,7 @@ extension UTMQemuConfigurationSharing {
 // MARK: - Conversion of old config format
 
 extension UTMQemuConfigurationSharing {
+    #if os(macOS)
     init(migrating oldConfig: UTMLegacyQemuConfiguration) {
         self.init()
         if oldConfig.shareDirectoryEnabled {
@@ -92,4 +93,5 @@ extension UTMQemuConfigurationSharing {
         isDirectoryShareReadOnly = oldConfig.shareDirectoryReadOnly
         hasClipboardSharing = oldConfig.shareClipboardEnabled
     }
+    #endif
 }

@@ -57,6 +57,7 @@ struct UTMConfigurationHostNetwork: Codable, Identifiable {
     }
     
     static func parseVMware(from url: URL) -> [UTMConfigurationHostNetwork] {
+        #if os(macOS)
         let accessing = url.startAccessingSecurityScopedResource()
         if !accessing { return [] }
         defer {
@@ -64,6 +65,7 @@ struct UTMConfigurationHostNetwork: Codable, Identifiable {
                 url.stopAccessingSecurityScopedResource()
             }
         }
+        #endif
         
         var currentId: String?;
         var currentName: String?;

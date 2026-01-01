@@ -17,15 +17,15 @@
 import Foundation
 
 /// Settings for input devices and USB.
-struct UTMQemuConfigurationInput: Codable {
+public struct UTMQemuConfigurationInput: Codable {
     /// Level of USB support (disabled/2.0/3.0).
-    var usbBusSupport: QEMUUSBBus = .usb2_0
+    public var usbBusSupport: QEMUUSBBus = .usb2_0
     
-    /// If enabled, USB forwarding can be used (if supported by the host).
-    var hasUsbSharing: Bool = false
+    /// If enabled, USB sharing is allowed.
+    public var hasUsbSharing: Bool = false
     
-    /// The maximum number of USB devices that can be forwarded concurrently.
-    var maximumUsbShare: Int = 3
+    /// Maximum number of USB devices allowed.
+    public var maximumUsbShare: Int = 0
     
     enum CodingKeys: String, CodingKey {
         case usbBusSupport = "UsbBusSupport"
@@ -33,17 +33,17 @@ struct UTMQemuConfigurationInput: Codable {
         case maximumUsbShare = "MaximumUsbShare"
     }
     
-    init() {
+    public init() {
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         usbBusSupport = try values.decode(QEMUUSBBus.self, forKey: .usbBusSupport)
         hasUsbSharing = try values.decode(Bool.self, forKey: .hasUsbSharing)
         maximumUsbShare = try values.decode(Int.self, forKey: .maximumUsbShare)
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(usbBusSupport, forKey: .usbBusSupport)
         try container.encode(hasUsbSharing, forKey: .hasUsbSharing)
@@ -54,7 +54,7 @@ struct UTMQemuConfigurationInput: Codable {
 // MARK: - Default construction
 
 extension UTMQemuConfigurationInput {
-    init(forArchitecture architecture: QEMUArchitecture, target: any QEMUTarget) {
+    public init(forArchitecture architecture: QEMUArchitecture, target: any QEMUTarget) {
         self.init()
         let rawTarget = target.rawValue
         if !architecture.hasUsbSupport || !target.hasUsbSupport {
@@ -70,6 +70,7 @@ extension UTMQemuConfigurationInput {
 // MARK: - Conversion of old config format
 
 extension UTMQemuConfigurationInput {
+    #if os(macOS)
     init(migrating oldConfig: UTMLegacyQemuConfiguration) {
         self.init()
         if oldConfig.inputLegacy {
@@ -84,4 +85,5 @@ extension UTMQemuConfigurationInput {
             maximumUsbShare = sharingNum.intValue
         }
     }
+    #endif
 }

@@ -17,7 +17,7 @@
 import Foundation
 
 /// Settings for single disk device
-protocol UTMConfigurationDrive: Codable, Hashable, Identifiable {
+public protocol UTMConfigurationDrive: Codable, Hashable, Identifiable {
     /// If not removable, this is the name of the file in the bundle.
     var imageName: String? { get set }
     
@@ -45,7 +45,7 @@ protocol UTMConfigurationDrive: Codable, Hashable, Identifiable {
 }
 
 extension UTMConfigurationDrive {
-    static func == (lhs: Self, rhs: Self) -> Bool {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.hashValue == rhs.hashValue
     }
     
@@ -120,12 +120,14 @@ extension UTMConfigurationDrive {
     private func createQcow2Image(at newURL: URL, size sizeMib: Int) async throws {
         #if WITH_REMOTE
         fatalError("Not implemented")
-        #else
+        #elseif os(macOS)
         try await Task.detached {
             if !QEMUGenerateDefaultQcow2File(newURL as CFURL, sizeMib) {
                 throw UTMConfigurationError.cannotCreateDiskImage
             }
         }.value
+        #else
+        throw UTMConfigurationError.cannotCreateDiskImage
         #endif
     }
 

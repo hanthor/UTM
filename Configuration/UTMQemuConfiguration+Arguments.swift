@@ -28,6 +28,10 @@ import Virtualization // for getting network interfaces
         QEMUArgumentFragment(final: string)
     }
     
+    public var qemuArguments: [QEMUArgument] {
+        allArguments
+    }
+    
     /// Shared between helper and main process to store Unix sockets
     var socketURL: URL {
         #if os(iOS) || os(visionOS)
@@ -42,11 +46,13 @@ import Virtualization // for getting network interfaces
         parentURL.appendPathComponent(helper ?? "com.utmapp.QEMUHelper")
         parentURL.appendPathComponent("Data")
         parentURL.appendPathComponent("tmp")
+        #if os(macOS)
         if let appGroup = appGroup, !appGroup.hasPrefix("invalid.") {
             if let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) {
                 return containerURL
             }
         }
+        #endif
         return parentURL
         #endif
     }
@@ -94,7 +100,7 @@ import Virtualization // for getting network interfaces
 
     /// Global setting to always use file lock or not
     private var isUseFileLock: Bool {
-        return UserDefaults.standard.value(forKey: "UseFileLock") == nil || UserDefaults.standard.bool(forKey: "UseFileLock")
+        return UserDefaults.standard.object(forKey: "UseFileLock") == nil || UserDefaults.standard.bool(forKey: "UseFileLock")
     }
 
     /// Special arguments should disable use of bootindex
@@ -387,16 +393,25 @@ import Virtualization // for getting network interfaces
     }
     
     private static func sysctlIntRead(_ name: String) -> UInt64 {
+        #if os(macOS)
         var value: UInt64 = 0
         var size = MemoryLayout<UInt64>.size
         sysctlbyname(name, &value, &size, nil, 0)
         return value
+        #else
+        return 0
+        #endif
     }
     
     private var emulatedCpuCount: (Int, Int) {
         let singleCpu = (1, 1)
+        #if os(macOS)
         let hostPhysicalCpu = Int(Self.sysctlIntRead("hw.physicalcpu"))
         let hostLogicalCpu = Int(Self.sysctlIntRead("hw.logicalcpu"))
+        #else
+        let hostPhysicalCpu = ProcessInfo.processInfo.processorCount
+        let hostLogicalCpu = ProcessInfo.processInfo.processorCount
+        #endif
         let userCpu = system.cpuCount
         if userCpu > 0 || hostPhysicalCpu == 0 {
             return (userCpu, userCpu) // user override

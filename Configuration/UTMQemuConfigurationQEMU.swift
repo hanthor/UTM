@@ -15,69 +15,71 @@
 //
 
 import Foundation
+#if os(macOS)
 import System
+#endif
 
 /// Tweaks and advanced QEMU settings.
-struct UTMQemuConfigurationQEMU: Codable {
+public struct UTMQemuConfigurationQEMU: Codable {
     /// Where to store the debug log. File may not exist yet. This property is not saved to file.
-    var debugLogURL: URL?
+    public var debugLogURL: URL?
     
     /// EFI variables if EFI boot is enabled. This property is not saved to file.
-    var efiVarsURL: URL?
+    public var efiVarsURL: URL?
     
     /// TPM data file if TPM is enabled. This property is not saved to file.
-    var tpmDataURL: URL?
+    public var tpmDataURL: URL?
     
     /// If true, write standard output to debug.log in the VM bundle.
-    var hasDebugLog: Bool = false
+    public var hasDebugLog: Bool = false
     
     /// If true, use UEFI boot on supported architectures.
-    var hasUefiBoot: Bool = false
+    public var hasUefiBoot: Bool = false
     
     /// If true, create a virtio-rng device on supported targets.
-    var hasRNGDevice: Bool = false
+    public var hasRNGDevice: Bool = false
     
     /// If true, create a virtio-balloon device on supported targets.
-    var hasBalloonDevice: Bool = false
+    public var hasBalloonDevice: Bool = false
     
     /// If true, create a vTPM device with an emulated backend.
-    var hasTPMDevice: Bool = false
+    public var hasTPMDevice: Bool = false
     
     /// If true, use HVF hypervisor instead of TCG emulation.
-    var hasHypervisor: Bool = false
+    public var hasHypervisor: Bool = false
     
     /// If true, enable total store ordering.
-    var hasTSO: Bool = false
+    public var hasTSO: Bool = false
     
     /// If true, attempt to sync RTC with the local time.
-    var hasRTCLocalTime: Bool = false
+    public var hasRTCLocalTime: Bool = false
     
     /// If true, emulate a PS/2 controller instead of relying on USB emulation.
-    var hasPS2Controller: Bool = false
+    public var hasPS2Controller: Bool = false
     
     /// QEMU machine property that overrides the default property defined by UTM.
-    var machinePropertyOverride: String?
+    public var machinePropertyOverride: String?
     
     /// Additional QEMU arguments.
-    var additionalArguments: [QEMUArgument] = []
+    public var additionalArguments: [QEMUArgument] = []
     
     /// If true, changes to the VM will not be committed to disk. Not saved.
-    var isDisposable: Bool = false
+    public var isDisposable: Bool = false
     
     /// Set to true to request UEFI variable reset. Not saved.
-    var isUefiVariableResetRequested: Bool = false
+    public var isUefiVariableResetRequested: Bool = false
     
     /// Set to open a port for remote SPICE session. Not saved.
-    var spiceServerPort: UInt16?
+    public var spiceServerPort: UInt16?
 
     /// If true, all SPICE channels will be over TLS. Not saved.
-    var isSpiceServerTlsEnabled: Bool = false
+    public var isSpiceServerTlsEnabled: Bool = false
     
     /// Set to a password shared with the client. Not saved.
-    var spiceServerPassword: String?
+    public var spiceServerPassword: String?
 
     /// When resetting UEFI vars, also set up Secure Boot keys
-    var hasPreloadedSecureBootKeys: Bool = false
+    public var hasPreloadedSecureBootKeys: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case hasDebugLog = "DebugLog"
@@ -93,10 +95,10 @@ struct UTMQemuConfigurationQEMU: Codable {
         case additionalArguments = "AdditionalArguments"
     }
     
-    init() {
+    public init() {
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         hasDebugLog = try values.decode(Bool.self, forKey: .hasDebugLog)
         hasUefiBoot = try values.decode(Bool.self, forKey: .hasUefiBoot)
@@ -116,7 +118,7 @@ struct UTMQemuConfigurationQEMU: Codable {
         }
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(hasDebugLog, forKey: .hasDebugLog)
         try container.encode(hasUefiBoot, forKey: .hasUefiBoot)
@@ -147,7 +149,7 @@ struct UTMQemuConfigurationQEMU: Codable {
 // MARK: - Default construction
 
 extension UTMQemuConfigurationQEMU {
-    init(forArchitecture architecture: QEMUArchitecture, target: any QEMUTarget) {
+    public init(forArchitecture architecture: QEMUArchitecture, target: any QEMUTarget) {
         self.init()
         let rawTarget = target.rawValue
         if rawTarget.hasPrefix("pc") || rawTarget.hasPrefix("q35") {
@@ -163,6 +165,7 @@ extension UTMQemuConfigurationQEMU {
 
 // MARK: - Conversion of old config format
 
+#if os(macOS)
 extension UTMQemuConfigurationQEMU {
     init(migrating oldConfig: UTMLegacyQemuConfiguration) {
         self.init()
@@ -180,6 +183,7 @@ extension UTMQemuConfigurationQEMU {
         efiVarsURL = oldConfig.existingPath?.appendingPathComponent(UTMLegacyQemuConfiguration.diskImagesDirectory).appendingPathComponent(QEMUPackageFileName.efiVariables.rawValue)
     }
 }
+#endif
 
 // MARK: - Saving data
 
@@ -205,8 +209,12 @@ extension UTMQemuConfigurationQEMU {
                         try FileManager.default.removeItem(at: varsURL)
                     }
                     try FileManager.default.copyItem(at: templateVarsURL, to: varsURL)
+                    #if os(macOS)
                     let permissions: FilePermissions = [.ownerReadWrite, .groupRead, .otherRead]
                     try FileManager.default.setAttributes([.posixPermissions: permissions.rawValue], ofItemAtPath: varsURL.path)
+                    #else
+                    try FileManager.default.setAttributes([.posixPermissions: 0o644], ofItemAtPath: varsURL.path)
+                    #endif
                 }.value
                 isUefiVariableResetRequested = false
                 hasPreloadedSecureBootKeys = false

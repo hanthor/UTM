@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 // Copyright © 2022 osy. All rights reserved.
 //
@@ -84,3 +85,4 @@ struct UTMAppleConfigurationSerial: Codable, Identifiable {
         return serialConfig
     }
 }
+#endif

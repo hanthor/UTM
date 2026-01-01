@@ -17,26 +17,31 @@
 import Foundation
 
 /// Settings for a single display.
-struct UTMQemuConfigurationDisplay: Codable, Identifiable {
+public struct UTMQemuConfigurationDisplay: Codable, Identifiable {
     /// Hardware card to emulate.
-    var hardware: any QEMUDisplayDevice = QEMUDisplayDevice_x86_64.virtio_vga
+    public var hardware: any QEMUDisplayDevice = QEMUDisplayDevice_x86_64.virtio_vga
     
     /// Only used for VGA devices.
     var vgaRamMib: Int?
     
-    /// If true, attempt to use SPICE guest agent to change the display resolution automatically.
-    var isDynamicResolution: Bool = true
+    /// If true, the display should be dynamically resized to the window size.
+    public var isDynamicResolution: Bool = true
     
-    /// Filter to use when upscaling.
-    var upscalingFilter: QEMUScaler = .nearest
+    /// if true, the display is native to the host.
+    public var isNativeGUI: Bool = false
     
-    /// Filter to use when downscaling.
-    var downscalingFilter: QEMUScaler = .linear
+    /// Scaling filter.
+    public var upscalingFilter: QEMUScaler = .linear
     
+    /// Scaling filter.
+    public var downscalingFilter: QEMUScaler = .linear
+    
+    /// If true, the display is retina.
+    public var isRetina: Bool = false
     /// If true, use the true (retina) resolution of the display. Otherwise, use the percieved resolution.
     var isNativeResolution: Bool = false
     
-    let id = UUID()
+    public var id: String = UUID().uuidString
     
     enum CodingKeys: String, CodingKey {
         case hardware = "Hardware"
@@ -44,23 +49,33 @@ struct UTMQemuConfigurationDisplay: Codable, Identifiable {
         case isDynamicResolution = "DynamicResolution"
         case upscalingFilter = "UpscalingFilter"
         case downscalingFilter = "DownscalingFilter"
+        case isRetina = "Retina"
         case isNativeResolution = "NativeResolution"
+        case isNativeGUI = "NativeGUI"
+        case identifier = "Identifier"
     }
     
-    init() {
+    public init() {
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         hardware = try values.decode(AnyQEMUConstant.self, forKey: .hardware)
         vgaRamMib = try values.decodeIfPresent(Int.self, forKey: .vgaRamMib)
-        isDynamicResolution = try values.decode(Bool.self, forKey: .isDynamicResolution)
+        if let isDynamicResolution = try values.decodeIfPresent(Bool.self, forKey: .isDynamicResolution) {
+            self.isDynamicResolution = isDynamicResolution
+        }
+        if let isNativeGUI = try values.decodeIfPresent(Bool.self, forKey: .isNativeGUI) {
+            self.isNativeGUI = isNativeGUI
+        }
         upscalingFilter = try values.decode(QEMUScaler.self, forKey: .upscalingFilter)
         downscalingFilter = try values.decode(QEMUScaler.self, forKey: .downscalingFilter)
+        isRetina = try values.decode(Bool.self, forKey: .isRetina)
         isNativeResolution = try values.decode(Bool.self, forKey: .isNativeResolution)
+        id = try values.decode(String.self, forKey: .identifier)
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(hardware.asAnyQEMUConstant(), forKey: .hardware)
         try container.encodeIfPresent(vgaRamMib, forKey: .vgaRamMib)
@@ -74,7 +89,7 @@ struct UTMQemuConfigurationDisplay: Codable, Identifiable {
 // MARK: - Default construction
 
 extension UTMQemuConfigurationDisplay {
-    init?(forArchitecture architecture: QEMUArchitecture, target: any QEMUTarget) {
+    public init?(forArchitecture architecture: QEMUArchitecture, target: any QEMUTarget) {
         self.init()
         let rawTarget = target.rawValue
         if !architecture.hasAgentSupport || rawTarget.hasPrefix("pc") || rawTarget == "isapc" {
@@ -106,6 +121,7 @@ extension UTMQemuConfigurationDisplay {
 // MARK: - Conversion of old config format
 
 extension UTMQemuConfigurationDisplay {
+    #if os(macOS)
     init?(migrating oldConfig: UTMLegacyQemuConfiguration) {
         self.init()
         guard !oldConfig.displayConsoleOnly else {
@@ -123,6 +139,7 @@ extension UTMQemuConfigurationDisplay {
             downscalingFilter = downscaler
         }
     }
+    #endif
     
     private func convertScaler(from str: String?) -> QEMUScaler? {
         if str == "linear" {

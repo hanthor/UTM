@@ -17,15 +17,15 @@
 import Foundation
 
 /// Settings for a QEMU configuration
-final class UTMQemuConfiguration: UTMConfiguration {
+public final class UTMQemuConfiguration: UTMConfiguration, Identifiable {
     /// Basic information and icon
-    @Published var _information: UTMConfigurationInfo = .init()
+    @Published public var _information: UTMConfigurationInfo = .init()
     
     /// System settings
-    @Published var _system: UTMQemuConfigurationSystem = .init()
+    @Published public var _system: UTMQemuConfigurationSystem = .init()
     
     /// Additional QEMU tweaks
-    @Published var _qemu: UTMQemuConfigurationQEMU = .init()
+    @Published public var _qemu: UTMQemuConfigurationQEMU = .init()
     
     /// Input settings
     @Published var _input: UTMQemuConfigurationInput = .init()
@@ -51,8 +51,12 @@ final class UTMQemuConfiguration: UTMConfiguration {
     /// True if configuration is migrated from a legacy config. Not saved.
     private(set) var isLegacy: Bool = false
     
-    var backend: UTMBackend {
+    public var backend: UTMBackend {
         .qemu
+    }
+    
+    public var id: UUID {
+        information.uuid
     }
     
     enum CodingKeys: String, CodingKey {
@@ -70,11 +74,11 @@ final class UTMQemuConfiguration: UTMConfiguration {
         case configurationVersion = "ConfigurationVersion"
     }
     
-    init() {
+    public init() {
         reset()
     }
     
-    required init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let backend = try values.decodeIfPresent(UTMBackend.self, forKey: .backend) ?? .qemu
         guard backend == .qemu else {
@@ -99,7 +103,7 @@ final class UTMQemuConfiguration: UTMConfiguration {
         _sound = try values.decode([UTMQemuConfigurationSound].self, forKey: .sound)
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(_information, forKey: .information)
         try container.encode(_system, forKey: .system)
@@ -117,15 +121,19 @@ final class UTMQemuConfiguration: UTMConfiguration {
 }
 
 enum UTMQemuConfigurationError: Error {
+    #if os(macOS)
     case migrationFailed
+    #endif
     case uefiNotSupported
 }
 
 extension UTMQemuConfigurationError: LocalizedError {
     var errorDescription: String? {
         switch self {
+        #if os(macOS)
         case .migrationFailed:
             return NSLocalizedString("Failed to migrate configuration from a previous UTM version.", comment: "UTMQemuConfigurationError")
+        #endif
         case .uefiNotSupported:
             return NSLocalizedString("UEFI is not supported with this architecture.", comment: "UTMQemuConfigurationError")
         }
@@ -134,8 +142,8 @@ extension UTMQemuConfigurationError: LocalizedError {
 
 // MARK: - Public accessors
 
-@MainActor extension UTMQemuConfiguration {
-    var information: UTMConfigurationInfo {
+public extension UTMQemuConfiguration {
+    public var information: UTMConfigurationInfo {
         get {
             _information
         }
@@ -145,7 +153,7 @@ extension UTMQemuConfigurationError: LocalizedError {
         }
     }
     
-    var system: UTMQemuConfigurationSystem {
+    public var system: UTMQemuConfigurationSystem {
         get {
             _system
         }
@@ -155,7 +163,7 @@ extension UTMQemuConfigurationError: LocalizedError {
         }
     }
     
-    var qemu: UTMQemuConfigurationQEMU {
+    public var qemu: UTMQemuConfigurationQEMU {
         get {
             _qemu
         }
@@ -165,7 +173,7 @@ extension UTMQemuConfigurationError: LocalizedError {
         }
     }
     
-    var input: UTMQemuConfigurationInput {
+    public var input: UTMQemuConfigurationInput {
         get {
             _input
         }
@@ -175,7 +183,7 @@ extension UTMQemuConfigurationError: LocalizedError {
         }
     }
     
-    var sharing: UTMQemuConfigurationSharing {
+    public var sharing: UTMQemuConfigurationSharing {
         get {
             _sharing
         }
@@ -185,7 +193,7 @@ extension UTMQemuConfigurationError: LocalizedError {
         }
     }
     
-    var displays: [UTMQemuConfigurationDisplay] {
+    public var displays: [UTMQemuConfigurationDisplay] {
         get {
             _displays
         }
@@ -195,7 +203,7 @@ extension UTMQemuConfigurationError: LocalizedError {
         }
     }
     
-    var drives: [UTMQemuConfigurationDrive] {
+    public var drives: [UTMQemuConfigurationDrive] {
         get {
             _drives
         }
@@ -205,7 +213,7 @@ extension UTMQemuConfigurationError: LocalizedError {
         }
     }
     
-    var networks: [UTMQemuConfigurationNetwork] {
+    public var networks: [UTMQemuConfigurationNetwork] {
         get {
             _networks
         }
@@ -215,7 +223,7 @@ extension UTMQemuConfigurationError: LocalizedError {
         }
     }
     
-    var serials: [UTMQemuConfigurationSerial] {
+    public var serials: [UTMQemuConfigurationSerial] {
         get {
             _serials
         }
@@ -225,7 +233,7 @@ extension UTMQemuConfigurationError: LocalizedError {
         }
     }
     
-    var sound: [UTMQemuConfigurationSound] {
+    public var sound: [UTMQemuConfigurationSound] {
         get {
             _sound
         }
@@ -276,6 +284,7 @@ extension UTMQemuConfiguration {
 
 // MARK: - Conversion of old config format
 
+#if os(macOS)
 extension UTMQemuConfiguration {
     convenience init(migrating oldConfig: UTMLegacyQemuConfiguration) {
         self.init()
@@ -304,11 +313,13 @@ extension UTMQemuConfiguration {
         }
     }
 }
+#endif
 
 // MARK: - Saving data
 
-@MainActor extension UTMQemuConfiguration {
-    func prepareSave(for packageURL: URL) async throws {
+@MainActor public extension UTMQemuConfiguration {
+    public func prepareSave(for packageURL: URL) async throws {
+        #if os(macOS)
         guard isLegacy else {
             return // nothing needed
         }
@@ -345,17 +356,17 @@ extension UTMQemuConfiguration {
                 do {
                     try FileManager.default.moveItem(at: oldLogURL, to: newLogURL)
                 } catch {
-                    // okay to fail
-                    try? FileManager.default.removeItem(at: oldLogURL)
+                     // ignore error
                 }
             }.value
             qemu.debugLogURL = newLogURL
         }
         // move efi variables
         qemu.efiVarsURL = nil // will be set at saveData
+        #endif
     }
     
-    func saveData(to dataURL: URL) async throws -> [URL] {
+    public func saveData(to dataURL: URL) async throws -> [URL] {
         var existingDataURLs = [URL]()
         
         existingDataURLs += try await _information.saveData(to: dataURL)

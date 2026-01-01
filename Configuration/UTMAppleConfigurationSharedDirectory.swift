@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 // Copyright © 2022 osy. All rights reserved.
 //
@@ -103,3 +104,4 @@ extension UTMAppleConfigurationSharedDirectory {
         isReadOnly = oldShare.isReadOnly
     }
 }
+#endif

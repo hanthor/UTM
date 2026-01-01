@@ -17,29 +17,31 @@
 import Foundation
 
 /// Console mode settings.
-struct UTMConfigurationTerminal: Codable, Identifiable {
+public struct UTMConfigurationTerminal: Codable, Identifiable {
     /// Terminal color scheme. Mutually exclusive with foreground/background colors.
     var theme: QEMUTerminalTheme?
     
     /// Terminal foreground color if a theme is not used.
-    var foregroundColor: String? = "#ffffff"
+    public var foregroundColor: String?
     
     /// Terminal background color if a theme is not used.
-    var backgroundColor: String? = "#000000"
+    public var backgroundColor: String?
     
     /// Terminal text font.
-    var font: QEMUTerminalFont = .init(rawValue: "Menlo")
+    public var font: QEMUTerminalFont = .init(rawValue: "Menlo")!
     
     /// Terminal text font size.
-    var fontSize: Int = 12
+    public var fontSize: Int = 12
+    
+    public var hasResizeCommand: Bool = false
     
     /// Command to send when the console is resized.
-    var resizeCommand: String?
+    public var resizeCommand: String?
     
     /// Terminal has a blinking cursor.
-    var hasCursorBlink: Bool = true
+    public var hasCursorBlink: Bool = true
     
-    let id = UUID()
+    public var id: String = UUID().uuidString
     
     enum CodingKeys: String, CodingKey {
         case theme = "Theme"
@@ -51,10 +53,10 @@ struct UTMConfigurationTerminal: Codable, Identifiable {
         case hasCursorBlink = "CursorBlink"
     }
     
-    init() {
+    public init() {
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         theme = try values.decodeIfPresent(QEMUTerminalTheme.self, forKey: .theme)
         foregroundColor = try values.decodeIfPresent(String.self, forKey: .foregroundColor)
@@ -65,7 +67,7 @@ struct UTMConfigurationTerminal: Codable, Identifiable {
         hasCursorBlink = try values.decodeIfPresent(Bool.self, forKey: .hasCursorBlink) ?? true
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         if let theme = theme {
             try container.encode(theme, forKey: .theme)
@@ -83,6 +85,7 @@ struct UTMConfigurationTerminal: Codable, Identifiable {
 // MARK: - Conversion of old config format
 
 extension UTMConfigurationTerminal {
+    #if os(macOS)
     init(migrating oldConfig: UTMLegacyQemuConfiguration) {
         self.init()
         foregroundColor = oldConfig.consoleTextColor
@@ -96,6 +99,7 @@ extension UTMConfigurationTerminal {
         resizeCommand = oldConfig.consoleResizeCommand
         hasCursorBlink = oldConfig.consoleCursorBlink
     }
+    #endif
     
     #if os(macOS)
     init(migrating oldConfig: UTMLegacyAppleConfiguration) {

@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 // Copyright © 2022 osy. All rights reserved.
 //
@@ -57,3 +58,4 @@ struct UTMAppleConfigurationGenericPlatform: Codable {
         return config
     }
 }
+#endif

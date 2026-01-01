@@ -17,23 +17,23 @@
 import Foundation
 
 /// Represent a single port forward
-struct UTMQemuConfigurationPortForward: Codable, Identifiable, Hashable {
+public struct UTMQemuConfigurationPortForward: Codable, Identifiable, Hashable {
     /// Socket protocol
-    var `protocol`: QEMUNetworkProtocol = .tcp
+    public var `protocol`: QEMUNetworkProtocol = .tcp
     
     /// Host address (nil for any address).
-    var hostAddress: String?
+    public var hostAddress: String?
     
     /// Host port to recieve connection.
-    var hostPort: Int = 0
+    public var hostPort: Int = 0
     
     /// Guest address (nil for any address).
-    var guestAddress: String?
+    public var guestAddress: String?
     
     /// Guest port where connection is coming from.
-    var guestPort: Int = 0
+    public var guestPort: Int = 0
     
-    let id = UUID()
+    public var id: String = UUID().uuidString
     
     enum CodingKeys: String, CodingKey {
         case `protocol` = "Protocol"
@@ -51,10 +51,10 @@ struct UTMQemuConfigurationPortForward: Codable, Identifiable, Hashable {
         case guestPort = "guestPort"
     }
     
-    init() {
+    public init() {
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         do {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             `protocol` = try values.decode(QEMUNetworkProtocol.self, forKey: .protocol)
@@ -73,7 +73,7 @@ struct UTMQemuConfigurationPortForward: Codable, Identifiable, Hashable {
         }
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(`protocol`, forKey: .protocol)
         try container.encodeIfPresent(hostAddress, forKey: .hostAddress)
@@ -82,7 +82,7 @@ struct UTMQemuConfigurationPortForward: Codable, Identifiable, Hashable {
         try container.encode(guestPort, forKey: .guestPort)
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         id.hash(into: &hasher)
     }
 }
@@ -90,6 +90,7 @@ struct UTMQemuConfigurationPortForward: Codable, Identifiable, Hashable {
 // MARK: - Conversion of old config format
 
 extension UTMQemuConfigurationPortForward {
+    #if os(macOS)
     init(migrating oldForward: UTMLegacyQemuConfigurationPortForward) {
         self.init()
         if let oldProtocol = convertProtocol(from: oldForward.protocol) {
@@ -104,6 +105,7 @@ extension UTMQemuConfigurationPortForward {
             guestPort = portNum.intValue
         }
     }
+    #endif
     
     private func convertProtocol(from str: String?) -> QEMUNetworkProtocol? {
         if str == "tcp" {

@@ -18,7 +18,7 @@
 
 import Foundation
 
-enum QEMUArchitecture: String, CaseIterable, QEMUConstant {
+public enum QEMUArchitecture: String, CaseIterable, QEMUConstant {
     case alpha
     case arm
     case aarch64
@@ -49,7 +49,7 @@ enum QEMUArchitecture: String, CaseIterable, QEMUConstant {
     case xtensa
     case xtensaeb
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .alpha: return "Alpha"
         case .arm: return "ARM (aarch32)"
@@ -84,7 +84,7 @@ enum QEMUArchitecture: String, CaseIterable, QEMUConstant {
     }
 }
 
-enum QEMUCPU_alpha: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_alpha: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case ev4
     case ev5
@@ -94,7 +94,7 @@ enum QEMUCPU_alpha: String, CaseIterable, QEMUCPU {
     case ev68
     case pca56
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .ev4: return "ev4"
@@ -108,7 +108,7 @@ enum QEMUCPU_alpha: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_arm: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_arm: String, CaseIterable, QEMUCPU {
     case pxa250
     case pxa255
     case pxa260
@@ -147,7 +147,7 @@ enum QEMUCPU_arm: String, CaseIterable, QEMUCPU {
     case sa1110
     case ti925t
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .pxa250: return "(deprecated) (pxa250)"
         case .pxa255: return "(deprecated) (pxa255)"
@@ -190,7 +190,7 @@ enum QEMUCPU_arm: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_aarch64: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_aarch64: String, CaseIterable, QEMUCPU {
     case pxa250
     case pxa255
     case pxa260
@@ -241,7 +241,7 @@ enum QEMUCPU_aarch64: String, CaseIterable, QEMUCPU {
     case sa1110
     case ti925t
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .pxa250: return "(deprecated) (pxa250)"
         case .pxa255: return "(deprecated) (pxa255)"
@@ -296,13 +296,13 @@ enum QEMUCPU_aarch64: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_avr: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_avr: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case avr5
     case avr51
     case avr6
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .avr5: return "avr5"
@@ -312,12 +312,12 @@ enum QEMUCPU_avr: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_hppa: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_hppa: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case hppa_cpu = "hppa-cpu"
     case hppa64_cpu = "hppa64-cpu"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .hppa_cpu: return "hppa-cpu"
@@ -326,7 +326,7 @@ enum QEMUCPU_hppa: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_i386: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_i386: String, CaseIterable, QEMUCPU {
     case _486 = "486"
     case _486_v1 = "486-v1"
     case EPYC_v1 = "EPYC-v1"
@@ -482,7 +482,7 @@ enum QEMUCPU_i386: String, CaseIterable, QEMUCPU {
     case qemu32
     case qemu64
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case ._486: return "486"
         case ._486_v1: return "486-v1"
@@ -642,13 +642,13 @@ enum QEMUCPU_i386: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_loongarch64: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_loongarch64: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case la132
     case la464
     case max
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .la132: return "la132"
@@ -658,7 +658,7 @@ enum QEMUCPU_loongarch64: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_m68k: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_m68k: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case any
     case cfv4e
@@ -671,7 +671,7 @@ enum QEMUCPU_m68k: String, CaseIterable, QEMUCPU {
     case m68040
     case m68060
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .any: return "any"
@@ -688,11 +688,11 @@ enum QEMUCPU_m68k: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_microblaze: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_microblaze: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case microblaze_cpu = "microblaze-cpu"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .microblaze_cpu: return "microblaze-cpu"
@@ -700,11 +700,11 @@ enum QEMUCPU_microblaze: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_microblazeel: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_microblazeel: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case microblaze_cpu = "microblaze-cpu"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .microblaze_cpu: return "microblaze-cpu"
@@ -712,7 +712,7 @@ enum QEMUCPU_microblazeel: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_mips: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_mips: String, CaseIterable, QEMUCPU {
     case _24KEc = "24KEc"
     case _24Kc = "24Kc"
     case _24Kf = "24Kf"
@@ -733,7 +733,7 @@ enum QEMUCPU_mips: String, CaseIterable, QEMUCPU {
     case XBurstR2
     case mips32r6_generic = "mips32r6-generic"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case ._24KEc: return "24KEc"
         case ._24Kc: return "24Kc"
@@ -758,7 +758,7 @@ enum QEMUCPU_mips: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_mipsel: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_mipsel: String, CaseIterable, QEMUCPU {
     case _24KEc = "24KEc"
     case _24Kc = "24Kc"
     case _24Kf = "24Kf"
@@ -779,7 +779,7 @@ enum QEMUCPU_mipsel: String, CaseIterable, QEMUCPU {
     case XBurstR2
     case mips32r6_generic = "mips32r6-generic"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case ._24KEc: return "24KEc"
         case ._24Kc: return "24Kc"
@@ -804,7 +804,7 @@ enum QEMUCPU_mipsel: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_mips64: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_mips64: String, CaseIterable, QEMUCPU {
     case _20Kc = "20Kc"
     case _24KEc = "24KEc"
     case _24Kc = "24Kc"
@@ -841,7 +841,7 @@ enum QEMUCPU_mips64: String, CaseIterable, QEMUCPU {
     case mips32r6_generic = "mips32r6-generic"
     case mips64dspr2
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case ._20Kc: return "20Kc"
         case ._24KEc: return "24KEc"
@@ -882,7 +882,7 @@ enum QEMUCPU_mips64: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_mips64el: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_mips64el: String, CaseIterable, QEMUCPU {
     case _20Kc = "20Kc"
     case _24KEc = "24KEc"
     case _24Kc = "24Kc"
@@ -919,7 +919,7 @@ enum QEMUCPU_mips64el: String, CaseIterable, QEMUCPU {
     case mips32r6_generic = "mips32r6-generic"
     case mips64dspr2
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case ._20Kc: return "20Kc"
         case ._24KEc: return "24KEc"
@@ -960,12 +960,12 @@ enum QEMUCPU_mips64el: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_or1k: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_or1k: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case any
     case or1200
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .any: return "any"
@@ -974,7 +974,7 @@ enum QEMUCPU_or1k: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_ppc: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_ppc: String, CaseIterable, QEMUCPU {
     case _405 = "405"
     case _405cr = "405cr"
     case _405gp = "405gp"
@@ -1361,7 +1361,7 @@ enum QEMUCPU_ppc: String, CaseIterable, QEMUCPU {
     case x2vp50
     case x2vp7
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case ._405: return "405"
         case ._405cr: return "405cr"
@@ -1752,7 +1752,7 @@ enum QEMUCPU_ppc: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_ppc64: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_ppc64: String, CaseIterable, QEMUCPU {
     case _405 = "405"
     case _405cr = "405cr"
     case _405gp = "405gp"
@@ -2175,7 +2175,7 @@ enum QEMUCPU_ppc64: String, CaseIterable, QEMUCPU {
     case x2vp50
     case x2vp7
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case ._405: return "405"
         case ._405cr: return "405cr"
@@ -2602,7 +2602,7 @@ enum QEMUCPU_ppc64: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_riscv32: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_riscv32: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case lowrisc_ibex = "lowrisc-ibex"
     case max
@@ -2613,7 +2613,7 @@ enum QEMUCPU_riscv32: String, CaseIterable, QEMUCPU {
     case sifive_e34 = "sifive-e34"
     case sifive_u34 = "sifive-u34"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .lowrisc_ibex: return "lowrisc-ibex"
@@ -2628,7 +2628,7 @@ enum QEMUCPU_riscv32: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_riscv64: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_riscv64: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case lowrisc_ibex = "lowrisc-ibex"
     case max
@@ -2655,7 +2655,7 @@ enum QEMUCPU_riscv64: String, CaseIterable, QEMUCPU {
     case x_rv128 = "x-rv128"
     case xiangshan_nanhu = "xiangshan-nanhu"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .lowrisc_ibex: return "lowrisc-ibex"
@@ -2686,11 +2686,11 @@ enum QEMUCPU_riscv64: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_rx: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_rx: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case rx62n
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .rx62n: return "rx62n"
@@ -2698,7 +2698,7 @@ enum QEMUCPU_rx: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_s390x: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_s390x: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case max
     case gen16a
@@ -2783,7 +2783,7 @@ enum QEMUCPU_s390x: String, CaseIterable, QEMUCPU {
     case z990_5_base = "z990.5-base"
     case qemu
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .max: return "Enables all features supported by the accelerator in the current host (max)"
@@ -2872,13 +2872,13 @@ enum QEMUCPU_s390x: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_sh4: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_sh4: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case sh7750r
     case sh7751r
     case sh7785
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .sh7750r: return "sh7750r"
@@ -2888,13 +2888,13 @@ enum QEMUCPU_sh4: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_sh4eb: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_sh4eb: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case sh7750r
     case sh7751r
     case sh7785
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .sh7750r: return "sh7750r"
@@ -2904,7 +2904,7 @@ enum QEMUCPU_sh4eb: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_sparc: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_sparc: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case Fujitsu_MB86904_ = "Fujitsu-MB86904     "
     case Fujitsu_MB86907_ = "Fujitsu-MB86907     "
@@ -2920,7 +2920,7 @@ enum QEMUCPU_sparc: String, CaseIterable, QEMUCPU {
     case TI_SuperSparc_61_ = "TI-SuperSparc-61    "
     case TI_SuperSparc_II_ = "TI-SuperSparc-II    "
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .Fujitsu_MB86904_: return "Fujitsu-MB86904     "
@@ -2940,7 +2940,7 @@ enum QEMUCPU_sparc: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_sparc64: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_sparc64: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case Fujitsu_Sparc64_ = "Fujitsu-Sparc64     "
     case Fujitsu_Sparc64_III_ = "Fujitsu-Sparc64-III "
@@ -2960,7 +2960,7 @@ enum QEMUCPU_sparc64: String, CaseIterable, QEMUCPU {
     case TI_UltraSparc_IIe_ = "TI-UltraSparc-IIe   "
     case TI_UltraSparc_IIi_ = "TI-UltraSparc-IIi   "
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .Fujitsu_Sparc64_: return "Fujitsu-Sparc64     "
@@ -2984,14 +2984,14 @@ enum QEMUCPU_sparc64: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_tricore: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_tricore: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case tc1796
     case tc1797
     case tc27x
     case tc37x
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .tc1796: return "tc1796"
@@ -3002,7 +3002,7 @@ enum QEMUCPU_tricore: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_x86_64: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_x86_64: String, CaseIterable, QEMUCPU {
     case _486 = "486"
     case _486_v1 = "486-v1"
     case EPYC_v1 = "EPYC-v1"
@@ -3158,7 +3158,7 @@ enum QEMUCPU_x86_64: String, CaseIterable, QEMUCPU {
     case qemu32
     case qemu64
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case ._486: return "486"
         case ._486_v1: return "486-v1"
@@ -3318,7 +3318,7 @@ enum QEMUCPU_x86_64: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_xtensa: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_xtensa: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case dc232b
     case dc233c
@@ -3329,7 +3329,7 @@ enum QEMUCPU_xtensa: String, CaseIterable, QEMUCPU {
     case sample_controller
     case test_mmuhifi_c3
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .dc232b: return "dc232b"
@@ -3344,12 +3344,12 @@ enum QEMUCPU_xtensa: String, CaseIterable, QEMUCPU {
     }
 }
 
-enum QEMUCPU_xtensaeb: String, CaseIterable, QEMUCPU {
+public enum QEMUCPU_xtensaeb: String, CaseIterable, QEMUCPU {
     case `default` = "default"
     case fsf
     case test_kc705_be
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "QEMUConstantGenerated")
         case .fsf: return "fsf"
@@ -3368,7 +3368,7 @@ typealias QEMUCPUFlag_avr = AnyQEMUConstant
 
 typealias QEMUCPUFlag_hppa = AnyQEMUConstant
 
-enum QEMUCPUFlag_i386: String, CaseIterable, QEMUCPUFlag {
+public enum QEMUCPUFlag_i386: String, CaseIterable, QEMUCPUFlag {
     case _3dnow = "3dnow"
     case _3dnowext = "3dnowext"
     case _3dnowprefetch = "3dnowprefetch"
@@ -3752,7 +3752,7 @@ enum QEMUCPUFlag_i386: String, CaseIterable, QEMUCPUFlag {
     case xtpr
     case zero_fcs_fds = "zero-fcs-fds"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case ._3dnow: return "3dnow"
         case ._3dnowext: return "3dnowext"
@@ -4168,10 +4168,10 @@ typealias QEMUCPUFlag_riscv64 = AnyQEMUConstant
 
 typealias QEMUCPUFlag_rx = AnyQEMUConstant
 
-enum QEMUCPUFlag_s390x: String, CaseIterable, QEMUCPUFlag {
+public enum QEMUCPUFlag_s390x: String, CaseIterable, QEMUCPUFlag {
     case _empty = ""
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case ._empty: return ""
         }
@@ -4182,13 +4182,13 @@ typealias QEMUCPUFlag_sh4 = AnyQEMUConstant
 
 typealias QEMUCPUFlag_sh4eb = AnyQEMUConstant
 
-enum QEMUCPUFlag_sparc: String, CaseIterable, QEMUCPUFlag {
+public enum QEMUCPUFlag_sparc: String, CaseIterable, QEMUCPUFlag {
     case div
     case float128
     case fsmuld
     case mul
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .div: return "div"
         case .float128: return "float128"
@@ -4198,7 +4198,7 @@ enum QEMUCPUFlag_sparc: String, CaseIterable, QEMUCPUFlag {
     }
 }
 
-enum QEMUCPUFlag_sparc64: String, CaseIterable, QEMUCPUFlag {
+public enum QEMUCPUFlag_sparc64: String, CaseIterable, QEMUCPUFlag {
     case cmt
     case float128
     case fmaf
@@ -4210,7 +4210,7 @@ enum QEMUCPUFlag_sparc64: String, CaseIterable, QEMUCPUFlag {
     case vis3
     case vis4
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cmt: return "cmt"
         case .float128: return "float128"
@@ -4228,7 +4228,7 @@ enum QEMUCPUFlag_sparc64: String, CaseIterable, QEMUCPUFlag {
 
 typealias QEMUCPUFlag_tricore = AnyQEMUConstant
 
-enum QEMUCPUFlag_x86_64: String, CaseIterable, QEMUCPUFlag {
+public enum QEMUCPUFlag_x86_64: String, CaseIterable, QEMUCPUFlag {
     case _3dnow = "3dnow"
     case _3dnowext = "3dnowext"
     case _3dnowprefetch = "3dnowprefetch"
@@ -4612,7 +4612,7 @@ enum QEMUCPUFlag_x86_64: String, CaseIterable, QEMUCPUFlag {
     case xtpr
     case zero_fcs_fds = "zero-fcs-fds"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case ._3dnow: return "3dnow"
         case ._3dnowext: return "3dnowext"
@@ -5004,15 +5004,15 @@ typealias QEMUCPUFlag_xtensa = AnyQEMUConstant
 
 typealias QEMUCPUFlag_xtensaeb = AnyQEMUConstant
 
-enum QEMUTarget_alpha: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_alpha: String, CaseIterable, QEMUTarget {
     case clipper
     case none
 
-    static var `default`: QEMUTarget_alpha {
+    public static var `default`: QEMUTarget_alpha {
         .clipper
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .clipper: return "Alpha DP264/CLIPPER (default) (clipper)"
         case .none: return "empty machine (none)"
@@ -5020,7 +5020,7 @@ enum QEMUTarget_alpha: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_arm: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_arm: String, CaseIterable, QEMUTarget {
     case integratorcp
     case kzm
     case mps2_an385 = "mps2-an385"
@@ -5128,11 +5128,11 @@ enum QEMUTarget_arm: String, CaseIterable, QEMUTarget {
     case cubieboard
     case none
 
-    static var `default`: QEMUTarget_arm {
+    public static var `default`: QEMUTarget_arm {
         .virt
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .integratorcp: return "ARM Integrator/CP (ARM926EJ-S) (integratorcp)"
         case .kzm: return "ARM KZM Emulation Baseboard (ARM1136) (kzm)"
@@ -5244,7 +5244,7 @@ enum QEMUTarget_arm: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_aarch64: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_aarch64: String, CaseIterable, QEMUTarget {
     case integratorcp
     case kzm
     case mps2_an385 = "mps2-an385"
@@ -5364,11 +5364,11 @@ enum QEMUTarget_aarch64: String, CaseIterable, QEMUTarget {
     case cubieboard
     case none
 
-    static var `default`: QEMUTarget_aarch64 {
+    public static var `default`: QEMUTarget_aarch64 {
         .virt
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .integratorcp: return "ARM Integrator/CP (ARM926EJ-S) (integratorcp)"
         case .kzm: return "ARM KZM Emulation Baseboard (ARM1136) (kzm)"
@@ -5492,7 +5492,7 @@ enum QEMUTarget_aarch64: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_avr: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_avr: String, CaseIterable, QEMUTarget {
     case _2009 = "2009"
     case arduino_duemilanove = "arduino-duemilanove"
     case mega
@@ -5503,11 +5503,11 @@ enum QEMUTarget_avr: String, CaseIterable, QEMUTarget {
     case arduino_uno = "arduino-uno"
     case none
 
-    static var `default`: QEMUTarget_avr {
+    public static var `default`: QEMUTarget_avr {
         .mega
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case ._2009: return "Arduino Duemilanove (ATmega168) (alias of arduino-duemilanove) (2009)"
         case .arduino_duemilanove: return "Arduino Duemilanove (ATmega168) (arduino-duemilanove)"
@@ -5522,16 +5522,16 @@ enum QEMUTarget_avr: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_hppa: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_hppa: String, CaseIterable, QEMUTarget {
     case B160L
     case C3700
     case none
 
-    static var `default`: QEMUTarget_hppa {
+    public static var `default`: QEMUTarget_hppa {
         .B160L
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .B160L: return "HP B160L workstation (default) (B160L)"
         case .C3700: return "HP C3700 workstation (C3700)"
@@ -5540,7 +5540,7 @@ enum QEMUTarget_hppa: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_i386: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_i386: String, CaseIterable, QEMUTarget {
     case isapc
     case q35
     case pc_q35_2_10 = "pc-q35-2.10"
@@ -5608,11 +5608,11 @@ enum QEMUTarget_i386: String, CaseIterable, QEMUTarget {
     case none
     case microvm
 
-    static var `default`: QEMUTarget_i386 {
+    public static var `default`: QEMUTarget_i386 {
         .q35
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isapc: return "ISA-only PC (isapc)"
         case .q35: return "Standard PC (Q35 + ICH9, 2009) (alias of pc-q35-10.0) (q35)"
@@ -5684,15 +5684,15 @@ enum QEMUTarget_i386: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_loongarch64: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_loongarch64: String, CaseIterable, QEMUTarget {
     case virt
     case none
 
-    static var `default`: QEMUTarget_loongarch64 {
+    public static var `default`: QEMUTarget_loongarch64 {
         .virt
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .virt: return "QEMU LoongArch Virtual Machine (default) (virt)"
         case .none: return "empty machine (none)"
@@ -5700,7 +5700,7 @@ enum QEMUTarget_loongarch64: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_m68k: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_m68k: String, CaseIterable, QEMUTarget {
     case an5206
     case mcf5208evb
     case q800
@@ -5721,11 +5721,11 @@ enum QEMUTarget_m68k: String, CaseIterable, QEMUTarget {
     case virt_9_2 = "virt-9.2"
     case none
 
-    static var `default`: QEMUTarget_m68k {
+    public static var `default`: QEMUTarget_m68k {
         .mcf5208evb
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .an5206: return "Arnewsh 5206 (an5206)"
         case .mcf5208evb: return "MCF5208EVB (default) (mcf5208evb)"
@@ -5750,17 +5750,17 @@ enum QEMUTarget_m68k: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_microblaze: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_microblaze: String, CaseIterable, QEMUTarget {
     case petalogix_s3adsp1800 = "petalogix-s3adsp1800"
     case petalogix_ml605 = "petalogix-ml605"
     case xlnx_zynqmp_pmu = "xlnx-zynqmp-pmu"
     case none
 
-    static var `default`: QEMUTarget_microblaze {
+    public static var `default`: QEMUTarget_microblaze {
         .petalogix_s3adsp1800
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .petalogix_s3adsp1800: return "PetaLogix linux refdesign for xilinx Spartan 3ADSP1800 (default) (petalogix-s3adsp1800)"
         case .petalogix_ml605: return "PetaLogix linux refdesign for xilinx ml605 (big endian) (deprecated) (petalogix-ml605)"
@@ -5770,17 +5770,17 @@ enum QEMUTarget_microblaze: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_microblazeel: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_microblazeel: String, CaseIterable, QEMUTarget {
     case petalogix_s3adsp1800 = "petalogix-s3adsp1800"
     case petalogix_ml605 = "petalogix-ml605"
     case xlnx_zynqmp_pmu = "xlnx-zynqmp-pmu"
     case none
 
-    static var `default`: QEMUTarget_microblazeel {
+    public static var `default`: QEMUTarget_microblazeel {
         .petalogix_s3adsp1800
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .petalogix_s3adsp1800: return "PetaLogix linux refdesign for xilinx Spartan 3ADSP1800 (default) (petalogix-s3adsp1800)"
         case .petalogix_ml605: return "PetaLogix linux refdesign for xilinx ml605 (little endian) (petalogix-ml605)"
@@ -5790,16 +5790,16 @@ enum QEMUTarget_microblazeel: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_mips: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_mips: String, CaseIterable, QEMUTarget {
     case mipssim
     case malta
     case none
 
-    static var `default`: QEMUTarget_mips {
+    public static var `default`: QEMUTarget_mips {
         .malta
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .mipssim: return "MIPS MIPSsim platform (mipssim)"
         case .malta: return "MIPS Malta Core LV (default) (malta)"
@@ -5808,16 +5808,16 @@ enum QEMUTarget_mips: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_mipsel: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_mipsel: String, CaseIterable, QEMUTarget {
     case mipssim
     case malta
     case none
 
-    static var `default`: QEMUTarget_mipsel {
+    public static var `default`: QEMUTarget_mipsel {
         .malta
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .mipssim: return "MIPS MIPSsim platform (mipssim)"
         case .malta: return "MIPS Malta Core LV (default) (malta)"
@@ -5826,18 +5826,18 @@ enum QEMUTarget_mipsel: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_mips64: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_mips64: String, CaseIterable, QEMUTarget {
     case pica61
     case mipssim
     case magnum
     case malta
     case none
 
-    static var `default`: QEMUTarget_mips64 {
+    public static var `default`: QEMUTarget_mips64 {
         .malta
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .pica61: return "Acer Pica 61 (pica61)"
         case .mipssim: return "MIPS MIPSsim platform (mipssim)"
@@ -5848,7 +5848,7 @@ enum QEMUTarget_mips64: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_mips64el: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_mips64el: String, CaseIterable, QEMUTarget {
     case pica61
     case fuloong2e
     case loongson3_virt = "loongson3-virt"
@@ -5858,11 +5858,11 @@ enum QEMUTarget_mips64el: String, CaseIterable, QEMUTarget {
     case malta
     case none
 
-    static var `default`: QEMUTarget_mips64el {
+    public static var `default`: QEMUTarget_mips64el {
         .malta
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .pica61: return "Acer Pica 61 (pica61)"
         case .fuloong2e: return "Fuloong 2e mini pc (fuloong2e)"
@@ -5876,16 +5876,16 @@ enum QEMUTarget_mips64el: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_or1k: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_or1k: String, CaseIterable, QEMUTarget {
     case none
     case or1k_sim = "or1k-sim"
     case virt
 
-    static var `default`: QEMUTarget_or1k {
+    public static var `default`: QEMUTarget_or1k {
         .or1k_sim
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .none: return "empty machine (none)"
         case .or1k_sim: return "or1k simulation (default) (or1k-sim)"
@@ -5894,7 +5894,7 @@ enum QEMUTarget_or1k: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_ppc: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_ppc: String, CaseIterable, QEMUTarget {
     case amigaone
     case pegasos2
     case g3beige
@@ -5907,11 +5907,11 @@ enum QEMUTarget_ppc: String, CaseIterable, QEMUTarget {
     case ppce500
     case mpc8544ds
 
-    static var `default`: QEMUTarget_ppc {
+    public static var `default`: QEMUTarget_ppc {
         .g3beige
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .amigaone: return "Eyetech AmigaOne/Mai Logic Teron (amigaone)"
         case .pegasos2: return "Genesi/bPlan Pegasos II (pegasos2)"
@@ -5928,7 +5928,7 @@ enum QEMUTarget_ppc: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_ppc64: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_ppc64: String, CaseIterable, QEMUTarget {
     case amigaone
     case pegasos2
     case g3beige
@@ -5968,11 +5968,11 @@ enum QEMUTarget_ppc64: String, CaseIterable, QEMUTarget {
     case pseries_9_1 = "pseries-9.1"
     case pseries_9_2 = "pseries-9.2"
 
-    static var `default`: QEMUTarget_ppc64 {
+    public static var `default`: QEMUTarget_ppc64 {
         .pseries_10_0
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .amigaone: return "Eyetech AmigaOne/Mai Logic Teron (amigaone)"
         case .pegasos2: return "Genesi/bPlan Pegasos II (pegasos2)"
@@ -6016,7 +6016,7 @@ enum QEMUTarget_ppc64: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_riscv32: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_riscv32: String, CaseIterable, QEMUTarget {
     case amd_microblaze_v_generic = "amd-microblaze-v-generic"
     case opentitan
     case sifive_e
@@ -6025,11 +6025,11 @@ enum QEMUTarget_riscv32: String, CaseIterable, QEMUTarget {
     case virt
     case none
 
-    static var `default`: QEMUTarget_riscv32 {
+    public static var `default`: QEMUTarget_riscv32 {
         .spike
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .amd_microblaze_v_generic: return "AMD Microblaze-V generic platform (amd-microblaze-v-generic)"
         case .opentitan: return "RISC-V Board compatible with OpenTitan (opentitan)"
@@ -6042,7 +6042,7 @@ enum QEMUTarget_riscv32: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_riscv64: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_riscv64: String, CaseIterable, QEMUTarget {
     case amd_microblaze_v_generic = "amd-microblaze-v-generic"
     case microchip_icicle_kit = "microchip-icicle-kit"
     case shakti_c
@@ -6052,11 +6052,11 @@ enum QEMUTarget_riscv64: String, CaseIterable, QEMUTarget {
     case virt
     case none
 
-    static var `default`: QEMUTarget_riscv64 {
+    public static var `default`: QEMUTarget_riscv64 {
         .virt
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .amd_microblaze_v_generic: return "AMD Microblaze-V generic platform (amd-microblaze-v-generic)"
         case .microchip_icicle_kit: return "Microchip PolarFire SoC Icicle Kit (microchip-icicle-kit)"
@@ -6070,16 +6070,16 @@ enum QEMUTarget_riscv64: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_rx: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_rx: String, CaseIterable, QEMUTarget {
     case none
     case gdbsim_r5f562n7 = "gdbsim-r5f562n7"
     case gdbsim_r5f562n8 = "gdbsim-r5f562n8"
 
-    static var `default`: QEMUTarget_rx {
+    public static var `default`: QEMUTarget_rx {
         .gdbsim_r5f562n7
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .none: return "empty machine (none)"
         case .gdbsim_r5f562n7: return "gdb simulator (R5F562N7 MCU and external RAM) (gdbsim-r5f562n7)"
@@ -6088,7 +6088,7 @@ enum QEMUTarget_rx: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_s390x: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_s390x: String, CaseIterable, QEMUTarget {
     case s390_ccw_virtio = "s390-ccw-virtio"
     case s390_ccw_virtio_10_0 = "s390-ccw-virtio-10.0"
     case s390_ccw_virtio_2_10 = "s390-ccw-virtio-2.10"
@@ -6117,11 +6117,11 @@ enum QEMUTarget_s390x: String, CaseIterable, QEMUTarget {
     case s390_ccw_virtio_9_2 = "s390-ccw-virtio-9.2"
     case none
 
-    static var `default`: QEMUTarget_s390x {
+    public static var `default`: QEMUTarget_s390x {
         .s390_ccw_virtio_10_0
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .s390_ccw_virtio: return "Virtual s390x machine (version 10.0) (alias of s390-ccw-virtio-10.0) (s390-ccw-virtio)"
         case .s390_ccw_virtio_10_0: return "Virtual s390x machine (version 10.0) (default) (s390-ccw-virtio-10.0)"
@@ -6154,15 +6154,15 @@ enum QEMUTarget_s390x: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_sh4: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_sh4: String, CaseIterable, QEMUTarget {
     case none
     case r2d
 
-    static var `default`: QEMUTarget_sh4 {
+    public static var `default`: QEMUTarget_sh4 {
         .none
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .none: return "empty machine (none)"
         case .r2d: return "r2d-plus board (r2d)"
@@ -6170,15 +6170,15 @@ enum QEMUTarget_sh4: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_sh4eb: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_sh4eb: String, CaseIterable, QEMUTarget {
     case none
     case r2d
 
-    static var `default`: QEMUTarget_sh4eb {
+    public static var `default`: QEMUTarget_sh4eb {
         .none
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .none: return "empty machine (none)"
         case .r2d: return "r2d-plus board (r2d)"
@@ -6186,7 +6186,7 @@ enum QEMUTarget_sh4eb: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_sparc: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_sparc: String, CaseIterable, QEMUTarget {
     case leon3_generic
     case SPARCClassic
     case SPARCbook
@@ -6199,11 +6199,11 @@ enum QEMUTarget_sparc: String, CaseIterable, QEMUTarget {
     case Voyager
     case none
 
-    static var `default`: QEMUTarget_sparc {
+    public static var `default`: QEMUTarget_sparc {
         .SS_5
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .leon3_generic: return "Leon-3 generic (leon3_generic)"
         case .SPARCClassic: return "Sun4m platform, SPARCClassic (SPARCClassic)"
@@ -6220,17 +6220,17 @@ enum QEMUTarget_sparc: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_sparc64: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_sparc64: String, CaseIterable, QEMUTarget {
     case sun4u
     case sun4v
     case niagara
     case none
 
-    static var `default`: QEMUTarget_sparc64 {
+    public static var `default`: QEMUTarget_sparc64 {
         .sun4u
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sun4u: return "Sun4u platform (default) (sun4u)"
         case .sun4v: return "Sun4v platform (sun4v)"
@@ -6240,16 +6240,16 @@ enum QEMUTarget_sparc64: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_tricore: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_tricore: String, CaseIterable, QEMUTarget {
     case KIT_AURIX_TC277_TRB
     case tricore_testboard
     case none
 
-    static var `default`: QEMUTarget_tricore {
+    public static var `default`: QEMUTarget_tricore {
         .tricore_testboard
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .KIT_AURIX_TC277_TRB: return "Infineon AURIX TriBoard TC277 (D-Step) (KIT_AURIX_TC277_TRB)"
         case .tricore_testboard: return "a minimal TriCore board (tricore_testboard)"
@@ -6258,7 +6258,7 @@ enum QEMUTarget_tricore: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_x86_64: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_x86_64: String, CaseIterable, QEMUTarget {
     case isapc
     case q35
     case pc_q35_2_10 = "pc-q35-2.10"
@@ -6326,11 +6326,11 @@ enum QEMUTarget_x86_64: String, CaseIterable, QEMUTarget {
     case none
     case microvm
 
-    static var `default`: QEMUTarget_x86_64 {
+    public static var `default`: QEMUTarget_x86_64 {
         .q35
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isapc: return "ISA-only PC (isapc)"
         case .q35: return "Standard PC (Q35 + ICH9, 2009) (alias of pc-q35-10.0) (q35)"
@@ -6402,7 +6402,7 @@ enum QEMUTarget_x86_64: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_xtensa: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_xtensa: String, CaseIterable, QEMUTarget {
     case none
     case kc705
     case kc705_nommu = "kc705-nommu"
@@ -6415,11 +6415,11 @@ enum QEMUTarget_xtensa: String, CaseIterable, QEMUTarget {
     case sim
     case virt
 
-    static var `default`: QEMUTarget_xtensa {
+    public static var `default`: QEMUTarget_xtensa {
         .sim
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .none: return "empty machine (none)"
         case .kc705: return "kc705 EVB (dc232b) (kc705)"
@@ -6436,7 +6436,7 @@ enum QEMUTarget_xtensa: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUTarget_xtensaeb: String, CaseIterable, QEMUTarget {
+public enum QEMUTarget_xtensaeb: String, CaseIterable, QEMUTarget {
     case none
     case kc705
     case kc705_nommu = "kc705-nommu"
@@ -6449,11 +6449,11 @@ enum QEMUTarget_xtensaeb: String, CaseIterable, QEMUTarget {
     case sim
     case virt
 
-    static var `default`: QEMUTarget_xtensaeb {
+    public static var `default`: QEMUTarget_xtensaeb {
         .sim
     }
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .none: return "empty machine (none)"
         case .kc705: return "kc705 EVB (fsf) (kc705)"
@@ -6470,7 +6470,7 @@ enum QEMUTarget_xtensaeb: String, CaseIterable, QEMUTarget {
     }
 }
 
-enum QEMUDisplayDevice_alpha: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_alpha: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case VGA
     case ati_vga = "ati-vga"
@@ -6481,7 +6481,7 @@ enum QEMUDisplayDevice_alpha: String, CaseIterable, QEMUDisplayDevice {
     case virtio_gpu_gl_pci = "virtio-gpu-gl-pci"
     case virtio_gpu_pci = "virtio-gpu-pci"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .VGA: return "VGA"
@@ -6496,7 +6496,7 @@ enum QEMUDisplayDevice_alpha: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_arm: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_arm: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case dm163
     case led
@@ -6513,7 +6513,7 @@ enum QEMUDisplayDevice_arm: String, CaseIterable, QEMUDisplayDevice {
     case virtio_ramfb = "virtio-ramfb"
     case virtio_ramfb_gl = "virtio-ramfb-gl"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .dm163: return "DM163 8x3-channel constant current LED driver (dm163)"
@@ -6534,7 +6534,7 @@ enum QEMUDisplayDevice_arm: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_aarch64: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_aarch64: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case dm163
     case led
@@ -6552,7 +6552,7 @@ enum QEMUDisplayDevice_aarch64: String, CaseIterable, QEMUDisplayDevice {
     case virtio_ramfb = "virtio-ramfb"
     case virtio_ramfb_gl = "virtio-ramfb-gl"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .dm163: return "DM163 8x3-channel constant current LED driver (dm163)"
@@ -6576,7 +6576,7 @@ enum QEMUDisplayDevice_aarch64: String, CaseIterable, QEMUDisplayDevice {
 
 typealias QEMUDisplayDevice_avr = AnyQEMUConstant
 
-enum QEMUDisplayDevice_hppa: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_hppa: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case VGA
     case ati_vga = "ati-vga"
@@ -6589,7 +6589,7 @@ enum QEMUDisplayDevice_hppa: String, CaseIterable, QEMUDisplayDevice {
     case virtio_vga = "virtio-vga"
     case virtio_vga_gl = "virtio-vga-gl"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .VGA: return "VGA"
@@ -6606,7 +6606,7 @@ enum QEMUDisplayDevice_hppa: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_i386: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_i386: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case qxl_vga = "qxl-vga"
     case qxl
@@ -6627,7 +6627,7 @@ enum QEMUDisplayDevice_i386: String, CaseIterable, QEMUDisplayDevice {
     case virtio_vga_gl = "virtio-vga-gl"
     case vmware_svga = "vmware-svga"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .qxl_vga: return "Spice QXL GPU (primary, vga compatible) (qxl-vga)"
@@ -6652,7 +6652,7 @@ enum QEMUDisplayDevice_i386: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_loongarch64: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_loongarch64: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case VGA
     case ati_vga = "ati-vga"
@@ -6666,7 +6666,7 @@ enum QEMUDisplayDevice_loongarch64: String, CaseIterable, QEMUDisplayDevice {
     case virtio_ramfb = "virtio-ramfb"
     case virtio_ramfb_gl = "virtio-ramfb-gl"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .VGA: return "VGA"
@@ -6684,12 +6684,12 @@ enum QEMUDisplayDevice_loongarch64: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_m68k: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_m68k: String, CaseIterable, QEMUDisplayDevice {
     case nubus_macfb = "nubus-macfb"
     case virtio_gpu_device = "virtio-gpu-device"
     case virtio_gpu_gl_device = "virtio-gpu-gl-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .nubus_macfb: return "Nubus Macintosh framebuffer (nubus-macfb)"
         case .virtio_gpu_device: return "virtio-gpu-device"
@@ -6702,7 +6702,7 @@ typealias QEMUDisplayDevice_microblaze = AnyQEMUConstant
 
 typealias QEMUDisplayDevice_microblazeel = AnyQEMUConstant
 
-enum QEMUDisplayDevice_mips: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_mips: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case VGA
     case ati_vga = "ati-vga"
@@ -6714,7 +6714,7 @@ enum QEMUDisplayDevice_mips: String, CaseIterable, QEMUDisplayDevice {
     case virtio_gpu_pci = "virtio-gpu-pci"
     case vmware_svga = "vmware-svga"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .VGA: return "VGA"
@@ -6730,7 +6730,7 @@ enum QEMUDisplayDevice_mips: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_mipsel: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_mipsel: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case VGA
     case ati_vga = "ati-vga"
@@ -6742,7 +6742,7 @@ enum QEMUDisplayDevice_mipsel: String, CaseIterable, QEMUDisplayDevice {
     case virtio_gpu_pci = "virtio-gpu-pci"
     case vmware_svga = "vmware-svga"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .VGA: return "VGA"
@@ -6758,7 +6758,7 @@ enum QEMUDisplayDevice_mipsel: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_mips64: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_mips64: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case VGA
     case ati_vga = "ati-vga"
@@ -6770,7 +6770,7 @@ enum QEMUDisplayDevice_mips64: String, CaseIterable, QEMUDisplayDevice {
     case virtio_gpu_pci = "virtio-gpu-pci"
     case vmware_svga = "vmware-svga"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .VGA: return "VGA"
@@ -6786,7 +6786,7 @@ enum QEMUDisplayDevice_mips64: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_mips64el: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_mips64el: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case qxl_vga = "qxl-vga"
     case qxl
@@ -6802,7 +6802,7 @@ enum QEMUDisplayDevice_mips64el: String, CaseIterable, QEMUDisplayDevice {
     case virtio_vga_gl = "virtio-vga-gl"
     case vmware_svga = "vmware-svga"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .qxl_vga: return "Spice QXL GPU (primary, vga compatible) (qxl-vga)"
@@ -6822,7 +6822,7 @@ enum QEMUDisplayDevice_mips64el: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_or1k: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_or1k: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case VGA
     case ati_vga = "ati-vga"
@@ -6835,7 +6835,7 @@ enum QEMUDisplayDevice_or1k: String, CaseIterable, QEMUDisplayDevice {
     case virtio_vga = "virtio-vga"
     case virtio_vga_gl = "virtio-vga-gl"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .VGA: return "VGA"
@@ -6852,7 +6852,7 @@ enum QEMUDisplayDevice_or1k: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_ppc: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_ppc: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case sm501
     case VGA
@@ -6864,7 +6864,7 @@ enum QEMUDisplayDevice_ppc: String, CaseIterable, QEMUDisplayDevice {
     case virtio_gpu_gl_pci = "virtio-gpu-gl-pci"
     case virtio_gpu_pci = "virtio-gpu-pci"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .sm501: return "SM501 Display Controller (sm501)"
@@ -6880,7 +6880,7 @@ enum QEMUDisplayDevice_ppc: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_ppc64: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_ppc64: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case sm501
     case VGA
@@ -6894,7 +6894,7 @@ enum QEMUDisplayDevice_ppc64: String, CaseIterable, QEMUDisplayDevice {
     case virtio_vga = "virtio-vga"
     case virtio_vga_gl = "virtio-vga-gl"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .sm501: return "SM501 Display Controller (sm501)"
@@ -6912,7 +6912,7 @@ enum QEMUDisplayDevice_ppc64: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_riscv32: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_riscv32: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case VGA
     case ati_vga = "ati-vga"
@@ -6928,7 +6928,7 @@ enum QEMUDisplayDevice_riscv32: String, CaseIterable, QEMUDisplayDevice {
     case virtio_vga = "virtio-vga"
     case virtio_vga_gl = "virtio-vga-gl"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .VGA: return "VGA"
@@ -6948,7 +6948,7 @@ enum QEMUDisplayDevice_riscv32: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_riscv64: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_riscv64: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case VGA
     case ati_vga = "ati-vga"
@@ -6964,7 +6964,7 @@ enum QEMUDisplayDevice_riscv64: String, CaseIterable, QEMUDisplayDevice {
     case virtio_vga = "virtio-vga"
     case virtio_vga_gl = "virtio-vga-gl"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .VGA: return "VGA"
@@ -6986,7 +6986,7 @@ enum QEMUDisplayDevice_riscv64: String, CaseIterable, QEMUDisplayDevice {
 
 typealias QEMUDisplayDevice_rx = AnyQEMUConstant
 
-enum QEMUDisplayDevice_s390x: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_s390x: String, CaseIterable, QEMUDisplayDevice {
     case virtio_gpu_ccw = "virtio-gpu-ccw"
     case virtio_gpu_device = "virtio-gpu-device"
     case virtio_gpu_gl_device = "virtio-gpu-gl-device"
@@ -6994,7 +6994,7 @@ enum QEMUDisplayDevice_s390x: String, CaseIterable, QEMUDisplayDevice {
     case virtio_gpu_pci = "virtio-gpu-pci"
     case x_terminal3270 = "x-terminal3270"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .virtio_gpu_ccw: return "virtio-gpu-ccw"
         case .virtio_gpu_device: return "virtio-gpu-device"
@@ -7006,7 +7006,7 @@ enum QEMUDisplayDevice_s390x: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_sh4: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_sh4: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case sm501
     case VGA
@@ -7018,7 +7018,7 @@ enum QEMUDisplayDevice_sh4: String, CaseIterable, QEMUDisplayDevice {
     case virtio_gpu_gl_pci = "virtio-gpu-gl-pci"
     case virtio_gpu_pci = "virtio-gpu-pci"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .sm501: return "SM501 Display Controller (sm501)"
@@ -7034,7 +7034,7 @@ enum QEMUDisplayDevice_sh4: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_sh4eb: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_sh4eb: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case sm501
     case VGA
@@ -7046,7 +7046,7 @@ enum QEMUDisplayDevice_sh4eb: String, CaseIterable, QEMUDisplayDevice {
     case virtio_gpu_gl_pci = "virtio-gpu-gl-pci"
     case virtio_gpu_pci = "virtio-gpu-pci"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .sm501: return "SM501 Display Controller (sm501)"
@@ -7062,11 +7062,11 @@ enum QEMUDisplayDevice_sh4eb: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_sparc: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_sparc: String, CaseIterable, QEMUDisplayDevice {
     case tcx
     case cg3
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .tcx: return "Sun TCX"
         case .cg3: return "Sun cgthree"
@@ -7074,7 +7074,7 @@ enum QEMUDisplayDevice_sparc: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_sparc64: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_sparc64: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case VGA
     case ati_vga = "ati-vga"
@@ -7085,7 +7085,7 @@ enum QEMUDisplayDevice_sparc64: String, CaseIterable, QEMUDisplayDevice {
     case virtio_gpu_gl_pci = "virtio-gpu-gl-pci"
     case virtio_gpu_pci = "virtio-gpu-pci"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .VGA: return "VGA"
@@ -7102,7 +7102,7 @@ enum QEMUDisplayDevice_sparc64: String, CaseIterable, QEMUDisplayDevice {
 
 typealias QEMUDisplayDevice_tricore = AnyQEMUConstant
 
-enum QEMUDisplayDevice_x86_64: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_x86_64: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case qxl_vga = "qxl-vga"
     case qxl
@@ -7123,7 +7123,7 @@ enum QEMUDisplayDevice_x86_64: String, CaseIterable, QEMUDisplayDevice {
     case virtio_vga_gl = "virtio-vga-gl"
     case vmware_svga = "vmware-svga"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .qxl_vga: return "Spice QXL GPU (primary, vga compatible) (qxl-vga)"
@@ -7148,7 +7148,7 @@ enum QEMUDisplayDevice_x86_64: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_xtensa: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_xtensa: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case VGA
     case ati_vga = "ati-vga"
@@ -7159,7 +7159,7 @@ enum QEMUDisplayDevice_xtensa: String, CaseIterable, QEMUDisplayDevice {
     case virtio_gpu_gl_pci = "virtio-gpu-gl-pci"
     case virtio_gpu_pci = "virtio-gpu-pci"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .VGA: return "VGA"
@@ -7174,7 +7174,7 @@ enum QEMUDisplayDevice_xtensa: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUDisplayDevice_xtensaeb: String, CaseIterable, QEMUDisplayDevice {
+public enum QEMUDisplayDevice_xtensaeb: String, CaseIterable, QEMUDisplayDevice {
     case cirrus_vga = "cirrus-vga"
     case VGA
     case ati_vga = "ati-vga"
@@ -7185,7 +7185,7 @@ enum QEMUDisplayDevice_xtensaeb: String, CaseIterable, QEMUDisplayDevice {
     case virtio_gpu_gl_pci = "virtio-gpu-gl-pci"
     case virtio_gpu_pci = "virtio-gpu-pci"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .cirrus_vga: return "Cirrus CLGD 54xx VGA (cirrus-vga)"
         case .VGA: return "VGA"
@@ -7200,7 +7200,7 @@ enum QEMUDisplayDevice_xtensaeb: String, CaseIterable, QEMUDisplayDevice {
     }
 }
 
-enum QEMUNetworkDevice_alpha: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_alpha: String, CaseIterable, QEMUNetworkDevice {
     case e1000
     case e1000_82544gc = "e1000-82544gc"
     case e1000_82545em = "e1000-82545em"
@@ -7229,7 +7229,7 @@ enum QEMUNetworkDevice_alpha: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000: return "Intel Gigabit Ethernet (e1000)"
         case .e1000_82544gc: return "Intel Gigabit Ethernet (e1000-82544gc)"
@@ -7262,7 +7262,7 @@ enum QEMUNetworkDevice_alpha: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_arm: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_arm: String, CaseIterable, QEMUNetworkDevice {
     case e1000e
     case igb
     case e1000
@@ -7293,7 +7293,7 @@ enum QEMUNetworkDevice_arm: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000e: return "Intel 82574L GbE Controller (e1000e)"
         case .igb: return "Intel 82576 Gigabit Ethernet Controller (igb)"
@@ -7328,7 +7328,7 @@ enum QEMUNetworkDevice_arm: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_aarch64: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_aarch64: String, CaseIterable, QEMUNetworkDevice {
     case e1000e
     case igb
     case e1000
@@ -7359,7 +7359,7 @@ enum QEMUNetworkDevice_aarch64: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000e: return "Intel 82574L GbE Controller (e1000e)"
         case .igb: return "Intel 82576 Gigabit Ethernet Controller (igb)"
@@ -7396,7 +7396,7 @@ enum QEMUNetworkDevice_aarch64: String, CaseIterable, QEMUNetworkDevice {
 
 typealias QEMUNetworkDevice_avr = AnyQEMUConstant
 
-enum QEMUNetworkDevice_hppa: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_hppa: String, CaseIterable, QEMUNetworkDevice {
     case e1000
     case e1000_82544gc = "e1000-82544gc"
     case e1000_82545em = "e1000-82545em"
@@ -7425,7 +7425,7 @@ enum QEMUNetworkDevice_hppa: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000: return "Intel Gigabit Ethernet (e1000)"
         case .e1000_82544gc: return "Intel Gigabit Ethernet (e1000-82544gc)"
@@ -7458,7 +7458,7 @@ enum QEMUNetworkDevice_hppa: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_i386: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_i386: String, CaseIterable, QEMUNetworkDevice {
     case e1000e
     case igb
     case e1000
@@ -7490,7 +7490,7 @@ enum QEMUNetworkDevice_i386: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000e: return "Intel 82574L GbE Controller (e1000e)"
         case .igb: return "Intel 82576 Gigabit Ethernet Controller (igb)"
@@ -7526,7 +7526,7 @@ enum QEMUNetworkDevice_i386: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_loongarch64: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_loongarch64: String, CaseIterable, QEMUNetworkDevice {
     case e1000e
     case igb
     case e1000
@@ -7557,7 +7557,7 @@ enum QEMUNetworkDevice_loongarch64: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000e: return "Intel 82574L GbE Controller (e1000e)"
         case .igb: return "Intel 82576 Gigabit Ethernet Controller (igb)"
@@ -7592,11 +7592,11 @@ enum QEMUNetworkDevice_loongarch64: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_m68k: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_m68k: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_device = "virtio-net-device"
     case dp8393x = "dp8393x"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .virtio_net_device: return "virtio-net-device"
         case .dp8393x: return "SONIC DP8393x (Q800 only)"
@@ -7608,7 +7608,7 @@ typealias QEMUNetworkDevice_microblaze = AnyQEMUConstant
 
 typealias QEMUNetworkDevice_microblazeel = AnyQEMUConstant
 
-enum QEMUNetworkDevice_mips: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_mips: String, CaseIterable, QEMUNetworkDevice {
     case e1000
     case e1000_82544gc = "e1000-82544gc"
     case e1000_82545em = "e1000-82545em"
@@ -7637,7 +7637,7 @@ enum QEMUNetworkDevice_mips: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000: return "Intel Gigabit Ethernet (e1000)"
         case .e1000_82544gc: return "Intel Gigabit Ethernet (e1000-82544gc)"
@@ -7670,7 +7670,7 @@ enum QEMUNetworkDevice_mips: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_mipsel: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_mipsel: String, CaseIterable, QEMUNetworkDevice {
     case e1000
     case e1000_82544gc = "e1000-82544gc"
     case e1000_82545em = "e1000-82545em"
@@ -7699,7 +7699,7 @@ enum QEMUNetworkDevice_mipsel: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000: return "Intel Gigabit Ethernet (e1000)"
         case .e1000_82544gc: return "Intel Gigabit Ethernet (e1000-82544gc)"
@@ -7732,7 +7732,7 @@ enum QEMUNetworkDevice_mipsel: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_mips64: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_mips64: String, CaseIterable, QEMUNetworkDevice {
     case e1000
     case e1000_82544gc = "e1000-82544gc"
     case e1000_82545em = "e1000-82545em"
@@ -7761,7 +7761,7 @@ enum QEMUNetworkDevice_mips64: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000: return "Intel Gigabit Ethernet (e1000)"
         case .e1000_82544gc: return "Intel Gigabit Ethernet (e1000-82544gc)"
@@ -7794,7 +7794,7 @@ enum QEMUNetworkDevice_mips64: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_mips64el: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_mips64el: String, CaseIterable, QEMUNetworkDevice {
     case e1000e
     case igb
     case e1000
@@ -7826,7 +7826,7 @@ enum QEMUNetworkDevice_mips64el: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000e: return "Intel 82574L GbE Controller (e1000e)"
         case .igb: return "Intel 82576 Gigabit Ethernet Controller (igb)"
@@ -7862,7 +7862,7 @@ enum QEMUNetworkDevice_mips64el: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_or1k: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_or1k: String, CaseIterable, QEMUNetworkDevice {
     case e1000
     case e1000_82544gc = "e1000-82544gc"
     case e1000_82545em = "e1000-82545em"
@@ -7890,7 +7890,7 @@ enum QEMUNetworkDevice_or1k: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000: return "Intel Gigabit Ethernet (e1000)"
         case .e1000_82544gc: return "Intel Gigabit Ethernet (e1000-82544gc)"
@@ -7922,7 +7922,7 @@ enum QEMUNetworkDevice_or1k: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_ppc: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_ppc: String, CaseIterable, QEMUNetworkDevice {
     case eTSEC
     case e1000e
     case igb
@@ -7956,7 +7956,7 @@ enum QEMUNetworkDevice_ppc: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .eTSEC: return "Freescale Enhanced Three-Speed Ethernet Controller (eTSEC)"
         case .e1000e: return "Intel 82574L GbE Controller (e1000e)"
@@ -7994,7 +7994,7 @@ enum QEMUNetworkDevice_ppc: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_ppc64: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_ppc64: String, CaseIterable, QEMUNetworkDevice {
     case eTSEC
     case e1000e
     case igb
@@ -8029,7 +8029,7 @@ enum QEMUNetworkDevice_ppc64: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .eTSEC: return "Freescale Enhanced Three-Speed Ethernet Controller (eTSEC)"
         case .e1000e: return "Intel 82574L GbE Controller (e1000e)"
@@ -8068,7 +8068,7 @@ enum QEMUNetworkDevice_ppc64: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_riscv32: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_riscv32: String, CaseIterable, QEMUNetworkDevice {
     case e1000e
     case igb
     case e1000
@@ -8099,7 +8099,7 @@ enum QEMUNetworkDevice_riscv32: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000e: return "Intel 82574L GbE Controller (e1000e)"
         case .igb: return "Intel 82576 Gigabit Ethernet Controller (igb)"
@@ -8134,7 +8134,7 @@ enum QEMUNetworkDevice_riscv32: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_riscv64: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_riscv64: String, CaseIterable, QEMUNetworkDevice {
     case e1000e
     case igb
     case e1000
@@ -8165,7 +8165,7 @@ enum QEMUNetworkDevice_riscv64: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000e: return "Intel 82574L GbE Controller (e1000e)"
         case .igb: return "Intel 82576 Gigabit Ethernet Controller (igb)"
@@ -8202,7 +8202,7 @@ enum QEMUNetworkDevice_riscv64: String, CaseIterable, QEMUNetworkDevice {
 
 typealias QEMUNetworkDevice_rx = AnyQEMUConstant
 
-enum QEMUNetworkDevice_s390x: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_s390x: String, CaseIterable, QEMUNetworkDevice {
     case e1000e
     case igb
     case usb_net = "usb-net"
@@ -8212,7 +8212,7 @@ enum QEMUNetworkDevice_s390x: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000e: return "Intel 82574L GbE Controller (e1000e)"
         case .igb: return "Intel 82576 Gigabit Ethernet Controller (igb)"
@@ -8226,7 +8226,7 @@ enum QEMUNetworkDevice_s390x: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_sh4: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_sh4: String, CaseIterable, QEMUNetworkDevice {
     case e1000
     case e1000_82544gc = "e1000-82544gc"
     case e1000_82545em = "e1000-82545em"
@@ -8255,7 +8255,7 @@ enum QEMUNetworkDevice_sh4: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000: return "Intel Gigabit Ethernet (e1000)"
         case .e1000_82544gc: return "Intel Gigabit Ethernet (e1000-82544gc)"
@@ -8288,7 +8288,7 @@ enum QEMUNetworkDevice_sh4: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_sh4eb: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_sh4eb: String, CaseIterable, QEMUNetworkDevice {
     case e1000
     case e1000_82544gc = "e1000-82544gc"
     case e1000_82545em = "e1000-82545em"
@@ -8317,7 +8317,7 @@ enum QEMUNetworkDevice_sh4eb: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000: return "Intel Gigabit Ethernet (e1000)"
         case .e1000_82544gc: return "Intel Gigabit Ethernet (e1000-82544gc)"
@@ -8350,17 +8350,17 @@ enum QEMUNetworkDevice_sh4eb: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_sparc: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_sparc: String, CaseIterable, QEMUNetworkDevice {
     case lance
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .lance: return "Lance (Am7990)"
         }
     }
 }
 
-enum QEMUNetworkDevice_sparc64: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_sparc64: String, CaseIterable, QEMUNetworkDevice {
     case e1000
     case e1000_82544gc = "e1000-82544gc"
     case e1000_82545em = "e1000-82545em"
@@ -8390,7 +8390,7 @@ enum QEMUNetworkDevice_sparc64: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000: return "Intel Gigabit Ethernet (e1000)"
         case .e1000_82544gc: return "Intel Gigabit Ethernet (e1000-82544gc)"
@@ -8426,7 +8426,7 @@ enum QEMUNetworkDevice_sparc64: String, CaseIterable, QEMUNetworkDevice {
 
 typealias QEMUNetworkDevice_tricore = AnyQEMUConstant
 
-enum QEMUNetworkDevice_x86_64: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_x86_64: String, CaseIterable, QEMUNetworkDevice {
     case e1000e
     case igb
     case e1000
@@ -8458,7 +8458,7 @@ enum QEMUNetworkDevice_x86_64: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000e: return "Intel 82574L GbE Controller (e1000e)"
         case .igb: return "Intel 82576 Gigabit Ethernet Controller (igb)"
@@ -8494,7 +8494,7 @@ enum QEMUNetworkDevice_x86_64: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_xtensa: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_xtensa: String, CaseIterable, QEMUNetworkDevice {
     case e1000
     case e1000_82544gc = "e1000-82544gc"
     case e1000_82545em = "e1000-82545em"
@@ -8522,7 +8522,7 @@ enum QEMUNetworkDevice_xtensa: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000: return "Intel Gigabit Ethernet (e1000)"
         case .e1000_82544gc: return "Intel Gigabit Ethernet (e1000-82544gc)"
@@ -8554,7 +8554,7 @@ enum QEMUNetworkDevice_xtensa: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUNetworkDevice_xtensaeb: String, CaseIterable, QEMUNetworkDevice {
+public enum QEMUNetworkDevice_xtensaeb: String, CaseIterable, QEMUNetworkDevice {
     case e1000
     case e1000_82544gc = "e1000-82544gc"
     case e1000_82545em = "e1000-82545em"
@@ -8582,7 +8582,7 @@ enum QEMUNetworkDevice_xtensaeb: String, CaseIterable, QEMUNetworkDevice {
     case virtio_net_pci_non_transitional = "virtio-net-pci-non-transitional"
     case virtio_net_pci_transitional = "virtio-net-pci-transitional"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .e1000: return "Intel Gigabit Ethernet (e1000)"
         case .e1000_82544gc: return "Intel Gigabit Ethernet (e1000-82544gc)"
@@ -8614,7 +8614,7 @@ enum QEMUNetworkDevice_xtensaeb: String, CaseIterable, QEMUNetworkDevice {
     }
 }
 
-enum QEMUSoundDevice_alpha: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_alpha: String, CaseIterable, QEMUSoundDevice {
     case sb16
     case cs4231a
     case ES1370
@@ -8627,7 +8627,7 @@ enum QEMUSoundDevice_alpha: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sb16: return "Creative Sound Blaster 16 (sb16)"
         case .cs4231a: return "Crystal Semiconductor CS4231A (cs4231a)"
@@ -8644,7 +8644,7 @@ enum QEMUSoundDevice_alpha: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_arm: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_arm: String, CaseIterable, QEMUSoundDevice {
     case ES1370
     case AC97
     case intel_hda = "intel-hda"
@@ -8653,7 +8653,7 @@ enum QEMUSoundDevice_arm: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .ES1370: return "ENSONIQ AudioPCI ES1370 (ES1370)"
         case .AC97: return "Intel 82801AA AC97 Audio (AC97)"
@@ -8666,7 +8666,7 @@ enum QEMUSoundDevice_arm: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_aarch64: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_aarch64: String, CaseIterable, QEMUSoundDevice {
     case ES1370
     case AC97
     case intel_hda = "intel-hda"
@@ -8675,7 +8675,7 @@ enum QEMUSoundDevice_aarch64: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .ES1370: return "ENSONIQ AudioPCI ES1370 (ES1370)"
         case .AC97: return "Intel 82801AA AC97 Audio (AC97)"
@@ -8690,7 +8690,7 @@ enum QEMUSoundDevice_aarch64: String, CaseIterable, QEMUSoundDevice {
 
 typealias QEMUSoundDevice_avr = AnyQEMUConstant
 
-enum QEMUSoundDevice_hppa: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_hppa: String, CaseIterable, QEMUSoundDevice {
     case sb16
     case cs4231a
     case ES1370
@@ -8703,7 +8703,7 @@ enum QEMUSoundDevice_hppa: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sb16: return "Creative Sound Blaster 16 (sb16)"
         case .cs4231a: return "Crystal Semiconductor CS4231A (cs4231a)"
@@ -8720,7 +8720,7 @@ enum QEMUSoundDevice_hppa: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_i386: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_i386: String, CaseIterable, QEMUSoundDevice {
     case sb16
     case cs4231a
     case ES1370
@@ -8734,7 +8734,7 @@ enum QEMUSoundDevice_i386: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sb16: return "Creative Sound Blaster 16 (sb16)"
         case .cs4231a: return "Crystal Semiconductor CS4231A (cs4231a)"
@@ -8752,7 +8752,7 @@ enum QEMUSoundDevice_i386: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_loongarch64: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_loongarch64: String, CaseIterable, QEMUSoundDevice {
     case ES1370
     case AC97
     case intel_hda = "intel-hda"
@@ -8761,7 +8761,7 @@ enum QEMUSoundDevice_loongarch64: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .ES1370: return "ENSONIQ AudioPCI ES1370 (ES1370)"
         case .AC97: return "Intel 82801AA AC97 Audio (AC97)"
@@ -8774,11 +8774,11 @@ enum QEMUSoundDevice_loongarch64: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_m68k: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_m68k: String, CaseIterable, QEMUSoundDevice {
     case virtio_sound_device = "virtio-sound-device"
     case asc = "asc"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .virtio_sound_device: return "virtio-sound-device"
         case .asc: return "Apple Sound Chip (Q800 only)"
@@ -8790,7 +8790,7 @@ typealias QEMUSoundDevice_microblaze = AnyQEMUConstant
 
 typealias QEMUSoundDevice_microblazeel = AnyQEMUConstant
 
-enum QEMUSoundDevice_mips: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_mips: String, CaseIterable, QEMUSoundDevice {
     case sb16
     case cs4231a
     case ES1370
@@ -8803,7 +8803,7 @@ enum QEMUSoundDevice_mips: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sb16: return "Creative Sound Blaster 16 (sb16)"
         case .cs4231a: return "Crystal Semiconductor CS4231A (cs4231a)"
@@ -8820,7 +8820,7 @@ enum QEMUSoundDevice_mips: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_mipsel: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_mipsel: String, CaseIterable, QEMUSoundDevice {
     case sb16
     case cs4231a
     case ES1370
@@ -8833,7 +8833,7 @@ enum QEMUSoundDevice_mipsel: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sb16: return "Creative Sound Blaster 16 (sb16)"
         case .cs4231a: return "Crystal Semiconductor CS4231A (cs4231a)"
@@ -8850,7 +8850,7 @@ enum QEMUSoundDevice_mipsel: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_mips64: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_mips64: String, CaseIterable, QEMUSoundDevice {
     case sb16
     case cs4231a
     case ES1370
@@ -8863,7 +8863,7 @@ enum QEMUSoundDevice_mips64: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sb16: return "Creative Sound Blaster 16 (sb16)"
         case .cs4231a: return "Crystal Semiconductor CS4231A (cs4231a)"
@@ -8880,7 +8880,7 @@ enum QEMUSoundDevice_mips64: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_mips64el: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_mips64el: String, CaseIterable, QEMUSoundDevice {
     case sb16
     case cs4231a
     case ES1370
@@ -8893,7 +8893,7 @@ enum QEMUSoundDevice_mips64el: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sb16: return "Creative Sound Blaster 16 (sb16)"
         case .cs4231a: return "Crystal Semiconductor CS4231A (cs4231a)"
@@ -8910,7 +8910,7 @@ enum QEMUSoundDevice_mips64el: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_or1k: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_or1k: String, CaseIterable, QEMUSoundDevice {
     case ES1370
     case AC97
     case intel_hda = "intel-hda"
@@ -8919,7 +8919,7 @@ enum QEMUSoundDevice_or1k: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .ES1370: return "ENSONIQ AudioPCI ES1370 (ES1370)"
         case .AC97: return "Intel 82801AA AC97 Audio (AC97)"
@@ -8932,7 +8932,7 @@ enum QEMUSoundDevice_or1k: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_ppc: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_ppc: String, CaseIterable, QEMUSoundDevice {
     case sb16
     case cs4231a
     case ES1370
@@ -8946,7 +8946,7 @@ enum QEMUSoundDevice_ppc: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sb16: return "Creative Sound Blaster 16 (sb16)"
         case .cs4231a: return "Crystal Semiconductor CS4231A (cs4231a)"
@@ -8964,7 +8964,7 @@ enum QEMUSoundDevice_ppc: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_ppc64: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_ppc64: String, CaseIterable, QEMUSoundDevice {
     case sb16
     case cs4231a
     case ES1370
@@ -8978,7 +8978,7 @@ enum QEMUSoundDevice_ppc64: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sb16: return "Creative Sound Blaster 16 (sb16)"
         case .cs4231a: return "Crystal Semiconductor CS4231A (cs4231a)"
@@ -8996,7 +8996,7 @@ enum QEMUSoundDevice_ppc64: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_riscv32: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_riscv32: String, CaseIterable, QEMUSoundDevice {
     case ES1370
     case AC97
     case intel_hda = "intel-hda"
@@ -9005,7 +9005,7 @@ enum QEMUSoundDevice_riscv32: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .ES1370: return "ENSONIQ AudioPCI ES1370 (ES1370)"
         case .AC97: return "Intel 82801AA AC97 Audio (AC97)"
@@ -9018,7 +9018,7 @@ enum QEMUSoundDevice_riscv32: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_riscv64: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_riscv64: String, CaseIterable, QEMUSoundDevice {
     case ES1370
     case AC97
     case intel_hda = "intel-hda"
@@ -9027,7 +9027,7 @@ enum QEMUSoundDevice_riscv64: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .ES1370: return "ENSONIQ AudioPCI ES1370 (ES1370)"
         case .AC97: return "Intel 82801AA AC97 Audio (AC97)"
@@ -9042,12 +9042,12 @@ enum QEMUSoundDevice_riscv64: String, CaseIterable, QEMUSoundDevice {
 
 typealias QEMUSoundDevice_rx = AnyQEMUConstant
 
-enum QEMUSoundDevice_s390x: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_s390x: String, CaseIterable, QEMUSoundDevice {
     case virtio_sound_pci = "virtio-sound-pci"
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .virtio_sound_pci: return "Virtio Sound (virtio-sound-pci)"
         case .usb_audio: return "usb-audio"
@@ -9056,7 +9056,7 @@ enum QEMUSoundDevice_s390x: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_sh4: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_sh4: String, CaseIterable, QEMUSoundDevice {
     case sb16
     case cs4231a
     case ES1370
@@ -9069,7 +9069,7 @@ enum QEMUSoundDevice_sh4: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sb16: return "Creative Sound Blaster 16 (sb16)"
         case .cs4231a: return "Crystal Semiconductor CS4231A (cs4231a)"
@@ -9086,7 +9086,7 @@ enum QEMUSoundDevice_sh4: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_sh4eb: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_sh4eb: String, CaseIterable, QEMUSoundDevice {
     case sb16
     case cs4231a
     case ES1370
@@ -9099,7 +9099,7 @@ enum QEMUSoundDevice_sh4eb: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sb16: return "Creative Sound Blaster 16 (sb16)"
         case .cs4231a: return "Crystal Semiconductor CS4231A (cs4231a)"
@@ -9118,7 +9118,7 @@ enum QEMUSoundDevice_sh4eb: String, CaseIterable, QEMUSoundDevice {
 
 typealias QEMUSoundDevice_sparc = AnyQEMUConstant
 
-enum QEMUSoundDevice_sparc64: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_sparc64: String, CaseIterable, QEMUSoundDevice {
     case sb16
     case cs4231a
     case ES1370
@@ -9131,7 +9131,7 @@ enum QEMUSoundDevice_sparc64: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sb16: return "Creative Sound Blaster 16 (sb16)"
         case .cs4231a: return "Crystal Semiconductor CS4231A (cs4231a)"
@@ -9150,7 +9150,7 @@ enum QEMUSoundDevice_sparc64: String, CaseIterable, QEMUSoundDevice {
 
 typealias QEMUSoundDevice_tricore = AnyQEMUConstant
 
-enum QEMUSoundDevice_x86_64: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_x86_64: String, CaseIterable, QEMUSoundDevice {
     case sb16
     case cs4231a
     case ES1370
@@ -9164,7 +9164,7 @@ enum QEMUSoundDevice_x86_64: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .sb16: return "Creative Sound Blaster 16 (sb16)"
         case .cs4231a: return "Crystal Semiconductor CS4231A (cs4231a)"
@@ -9182,7 +9182,7 @@ enum QEMUSoundDevice_x86_64: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_xtensa: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_xtensa: String, CaseIterable, QEMUSoundDevice {
     case ES1370
     case AC97
     case intel_hda = "intel-hda"
@@ -9191,7 +9191,7 @@ enum QEMUSoundDevice_xtensa: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .ES1370: return "ENSONIQ AudioPCI ES1370 (ES1370)"
         case .AC97: return "Intel 82801AA AC97 Audio (AC97)"
@@ -9204,7 +9204,7 @@ enum QEMUSoundDevice_xtensa: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSoundDevice_xtensaeb: String, CaseIterable, QEMUSoundDevice {
+public enum QEMUSoundDevice_xtensaeb: String, CaseIterable, QEMUSoundDevice {
     case ES1370
     case AC97
     case intel_hda = "intel-hda"
@@ -9213,7 +9213,7 @@ enum QEMUSoundDevice_xtensaeb: String, CaseIterable, QEMUSoundDevice {
     case usb_audio = "usb-audio"
     case virtio_sound_device = "virtio-sound-device"
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .ES1370: return "ENSONIQ AudioPCI ES1370 (ES1370)"
         case .AC97: return "Intel 82801AA AC97 Audio (AC97)"
@@ -9226,7 +9226,7 @@ enum QEMUSoundDevice_xtensaeb: String, CaseIterable, QEMUSoundDevice {
     }
 }
 
-enum QEMUSerialDevice_alpha: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_alpha: String, CaseIterable, QEMUSerialDevice {
     case isa_serial = "isa-serial"
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
@@ -9238,7 +9238,7 @@ enum QEMUSerialDevice_alpha: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isa_serial: return "isa-serial"
         case .pci_serial: return "pci-serial"
@@ -9254,7 +9254,7 @@ enum QEMUSerialDevice_alpha: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_arm: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_arm: String, CaseIterable, QEMUSerialDevice {
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
     case pci_serial_4x = "pci-serial-4x"
@@ -9265,7 +9265,7 @@ enum QEMUSerialDevice_arm: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .pci_serial: return "pci-serial"
         case .pci_serial_2x: return "pci-serial-2x"
@@ -9280,7 +9280,7 @@ enum QEMUSerialDevice_arm: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_aarch64: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_aarch64: String, CaseIterable, QEMUSerialDevice {
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
     case pci_serial_4x = "pci-serial-4x"
@@ -9291,7 +9291,7 @@ enum QEMUSerialDevice_aarch64: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .pci_serial: return "pci-serial"
         case .pci_serial_2x: return "pci-serial-2x"
@@ -9308,7 +9308,7 @@ enum QEMUSerialDevice_aarch64: String, CaseIterable, QEMUSerialDevice {
 
 typealias QEMUSerialDevice_avr = AnyQEMUConstant
 
-enum QEMUSerialDevice_hppa: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_hppa: String, CaseIterable, QEMUSerialDevice {
     case isa_serial = "isa-serial"
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
@@ -9320,7 +9320,7 @@ enum QEMUSerialDevice_hppa: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isa_serial: return "isa-serial"
         case .pci_serial: return "pci-serial"
@@ -9336,7 +9336,7 @@ enum QEMUSerialDevice_hppa: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_i386: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_i386: String, CaseIterable, QEMUSerialDevice {
     case isa_serial = "isa-serial"
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
@@ -9348,7 +9348,7 @@ enum QEMUSerialDevice_i386: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isa_serial: return "isa-serial"
         case .pci_serial: return "pci-serial"
@@ -9364,7 +9364,7 @@ enum QEMUSerialDevice_i386: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_loongarch64: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_loongarch64: String, CaseIterable, QEMUSerialDevice {
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
     case pci_serial_4x = "pci-serial-4x"
@@ -9375,7 +9375,7 @@ enum QEMUSerialDevice_loongarch64: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .pci_serial: return "pci-serial"
         case .pci_serial_2x: return "pci-serial-2x"
@@ -9390,11 +9390,11 @@ enum QEMUSerialDevice_loongarch64: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_m68k: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_m68k: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_device = "virtio-serial-device"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .virtio_serial_device: return "virtio-serial-device"
         case .virtserialport: return "virtserialport"
@@ -9406,7 +9406,7 @@ typealias QEMUSerialDevice_microblaze = AnyQEMUConstant
 
 typealias QEMUSerialDevice_microblazeel = AnyQEMUConstant
 
-enum QEMUSerialDevice_mips: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_mips: String, CaseIterable, QEMUSerialDevice {
     case isa_serial = "isa-serial"
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
@@ -9418,7 +9418,7 @@ enum QEMUSerialDevice_mips: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isa_serial: return "isa-serial"
         case .pci_serial: return "pci-serial"
@@ -9434,7 +9434,7 @@ enum QEMUSerialDevice_mips: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_mipsel: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_mipsel: String, CaseIterable, QEMUSerialDevice {
     case isa_serial = "isa-serial"
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
@@ -9446,7 +9446,7 @@ enum QEMUSerialDevice_mipsel: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isa_serial: return "isa-serial"
         case .pci_serial: return "pci-serial"
@@ -9462,7 +9462,7 @@ enum QEMUSerialDevice_mipsel: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_mips64: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_mips64: String, CaseIterable, QEMUSerialDevice {
     case isa_serial = "isa-serial"
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
@@ -9474,7 +9474,7 @@ enum QEMUSerialDevice_mips64: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isa_serial: return "isa-serial"
         case .pci_serial: return "pci-serial"
@@ -9490,7 +9490,7 @@ enum QEMUSerialDevice_mips64: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_mips64el: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_mips64el: String, CaseIterable, QEMUSerialDevice {
     case isa_serial = "isa-serial"
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
@@ -9502,7 +9502,7 @@ enum QEMUSerialDevice_mips64el: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isa_serial: return "isa-serial"
         case .pci_serial: return "pci-serial"
@@ -9518,7 +9518,7 @@ enum QEMUSerialDevice_mips64el: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_or1k: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_or1k: String, CaseIterable, QEMUSerialDevice {
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
     case pci_serial_4x = "pci-serial-4x"
@@ -9529,7 +9529,7 @@ enum QEMUSerialDevice_or1k: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .pci_serial: return "pci-serial"
         case .pci_serial_2x: return "pci-serial-2x"
@@ -9544,7 +9544,7 @@ enum QEMUSerialDevice_or1k: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_ppc: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_ppc: String, CaseIterable, QEMUSerialDevice {
     case isa_serial = "isa-serial"
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
@@ -9556,7 +9556,7 @@ enum QEMUSerialDevice_ppc: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isa_serial: return "isa-serial"
         case .pci_serial: return "pci-serial"
@@ -9572,7 +9572,7 @@ enum QEMUSerialDevice_ppc: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_ppc64: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_ppc64: String, CaseIterable, QEMUSerialDevice {
     case isa_serial = "isa-serial"
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
@@ -9584,7 +9584,7 @@ enum QEMUSerialDevice_ppc64: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isa_serial: return "isa-serial"
         case .pci_serial: return "pci-serial"
@@ -9600,7 +9600,7 @@ enum QEMUSerialDevice_ppc64: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_riscv32: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_riscv32: String, CaseIterable, QEMUSerialDevice {
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
     case pci_serial_4x = "pci-serial-4x"
@@ -9611,7 +9611,7 @@ enum QEMUSerialDevice_riscv32: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .pci_serial: return "pci-serial"
         case .pci_serial_2x: return "pci-serial-2x"
@@ -9626,7 +9626,7 @@ enum QEMUSerialDevice_riscv32: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_riscv64: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_riscv64: String, CaseIterable, QEMUSerialDevice {
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
     case pci_serial_4x = "pci-serial-4x"
@@ -9637,7 +9637,7 @@ enum QEMUSerialDevice_riscv64: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .pci_serial: return "pci-serial"
         case .pci_serial_2x: return "pci-serial-2x"
@@ -9654,7 +9654,7 @@ enum QEMUSerialDevice_riscv64: String, CaseIterable, QEMUSerialDevice {
 
 typealias QEMUSerialDevice_rx = AnyQEMUConstant
 
-enum QEMUSerialDevice_s390x: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_s390x: String, CaseIterable, QEMUSerialDevice {
     case usb_serial = "usb-serial"
     case virtio_serial_ccw = "virtio-serial-ccw"
     case virtio_serial_device = "virtio-serial-device"
@@ -9663,7 +9663,7 @@ enum QEMUSerialDevice_s390x: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .usb_serial: return "usb-serial"
         case .virtio_serial_ccw: return "virtio-serial-ccw"
@@ -9676,7 +9676,7 @@ enum QEMUSerialDevice_s390x: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_sh4: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_sh4: String, CaseIterable, QEMUSerialDevice {
     case isa_serial = "isa-serial"
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
@@ -9688,7 +9688,7 @@ enum QEMUSerialDevice_sh4: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isa_serial: return "isa-serial"
         case .pci_serial: return "pci-serial"
@@ -9704,7 +9704,7 @@ enum QEMUSerialDevice_sh4: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_sh4eb: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_sh4eb: String, CaseIterable, QEMUSerialDevice {
     case isa_serial = "isa-serial"
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
@@ -9716,7 +9716,7 @@ enum QEMUSerialDevice_sh4eb: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isa_serial: return "isa-serial"
         case .pci_serial: return "pci-serial"
@@ -9734,7 +9734,7 @@ enum QEMUSerialDevice_sh4eb: String, CaseIterable, QEMUSerialDevice {
 
 typealias QEMUSerialDevice_sparc = AnyQEMUConstant
 
-enum QEMUSerialDevice_sparc64: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_sparc64: String, CaseIterable, QEMUSerialDevice {
     case isa_serial = "isa-serial"
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
@@ -9746,7 +9746,7 @@ enum QEMUSerialDevice_sparc64: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isa_serial: return "isa-serial"
         case .pci_serial: return "pci-serial"
@@ -9764,7 +9764,7 @@ enum QEMUSerialDevice_sparc64: String, CaseIterable, QEMUSerialDevice {
 
 typealias QEMUSerialDevice_tricore = AnyQEMUConstant
 
-enum QEMUSerialDevice_x86_64: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_x86_64: String, CaseIterable, QEMUSerialDevice {
     case isa_serial = "isa-serial"
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
@@ -9776,7 +9776,7 @@ enum QEMUSerialDevice_x86_64: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .isa_serial: return "isa-serial"
         case .pci_serial: return "pci-serial"
@@ -9792,7 +9792,7 @@ enum QEMUSerialDevice_x86_64: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_xtensa: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_xtensa: String, CaseIterable, QEMUSerialDevice {
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
     case pci_serial_4x = "pci-serial-4x"
@@ -9803,7 +9803,7 @@ enum QEMUSerialDevice_xtensa: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .pci_serial: return "pci-serial"
         case .pci_serial_2x: return "pci-serial-2x"
@@ -9818,7 +9818,7 @@ enum QEMUSerialDevice_xtensa: String, CaseIterable, QEMUSerialDevice {
     }
 }
 
-enum QEMUSerialDevice_xtensaeb: String, CaseIterable, QEMUSerialDevice {
+public enum QEMUSerialDevice_xtensaeb: String, CaseIterable, QEMUSerialDevice {
     case pci_serial = "pci-serial"
     case pci_serial_2x = "pci-serial-2x"
     case pci_serial_4x = "pci-serial-4x"
@@ -9829,7 +9829,7 @@ enum QEMUSerialDevice_xtensaeb: String, CaseIterable, QEMUSerialDevice {
     case virtio_serial_pci_transitional = "virtio-serial-pci-transitional"
     case virtserialport
 
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .pci_serial: return "pci-serial"
         case .pci_serial_2x: return "pci-serial-2x"

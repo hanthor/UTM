@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 // Copyright © 2022 osy. All rights reserved.
 //
@@ -350,3 +351,4 @@ extension UTMAppleConfiguration {
         return existingDataURLs
     }
 }
+#endif

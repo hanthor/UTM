@@ -15,21 +15,23 @@
 //
 
 import Foundation
+#if os(macOS)
 import Combine
+#endif
 
 /// Settings for single serial device
-struct UTMQemuConfigurationSerial: Codable, Identifiable {
+public struct UTMQemuConfigurationSerial: Codable, Identifiable {
     /// The back-end character device (host controlled).
-    var mode: QEMUSerialMode = .builtin
+    public var mode: QEMUSerialMode = .builtin
     
-    /// The front-end serial port target (guest controlled).
-    var target: QEMUSerialTarget = .autoDevice
+    /// The front-end character device (guest controlled).
+    public var target: QEMUSerialTarget = .autoDevice
     
-    /// Terminal settings for built-in mode.
-    var terminal: UTMConfigurationTerminal? = .init()
+    /// Use the provided terminal settings
+    public var terminal: UTMConfigurationTerminal?
     
-    /// Hardware model to emulate (for manual mode).
-    var hardware: (any QEMUSerialDevice)?
+    /// Hardware model to emulate.
+    public var hardware: (any QEMUSerialDevice)?
     
     /// Path to PTTY (determined after VM starts). Not saved.
     var pttyDevice: URL?
@@ -46,7 +48,7 @@ struct UTMQemuConfigurationSerial: Codable, Identifiable {
     /// Applies only to TCP server. If true, the port will be listened on all interfaces.
     var isRemoteConnectionAllowed: Bool?
     
-    let id = UUID()
+    public var id: String = UUID().uuidString
     
     enum CodingKeys: String, CodingKey {
         case mode = "Mode"
@@ -62,7 +64,7 @@ struct UTMQemuConfigurationSerial: Codable, Identifiable {
     init() {
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         mode = try values.decode(QEMUSerialMode.self, forKey: .mode)
         target = try values.decode(QEMUSerialTarget.self, forKey: .target)
@@ -74,7 +76,7 @@ struct UTMQemuConfigurationSerial: Codable, Identifiable {
         isRemoteConnectionAllowed = try values.decodeIfPresent(Bool.self, forKey: .isRemoteConnectionAllowed)
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(mode, forKey: .mode)
         try container.encode(target, forKey: .target)
@@ -106,6 +108,7 @@ extension UTMQemuConfigurationSerial {
 
 // MARK: - Conversion of old config format
 
+#if os(macOS)
 extension UTMQemuConfigurationSerial {
     init?(migrating oldConfig: UTMLegacyQemuConfiguration) {
         self.init()
@@ -115,3 +118,4 @@ extension UTMQemuConfigurationSerial {
         terminal = UTMConfigurationTerminal(migrating: oldConfig)
     }
 }
+#endif

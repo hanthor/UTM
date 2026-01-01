@@ -16,22 +16,25 @@
 
 import Foundation
 
-/// Basic information about the VM only used in listing and presenting.
-struct UTMConfigurationInfo: Codable {
-    /// VM name displayed to user.
-    var name: String = NSLocalizedString("Virtual Machine", comment: "UTMConfigurationInfo")
+/// Basic information and icon
+public struct UTMConfigurationInfo: Codable {
+    /// VM Name
+    public var name: String = ""
     
-    /// Path to the icon.
-    var iconURL: URL?
+    /// Path to icon
+    public var iconURL: URL?
     
-    /// If true, the icon is stored in the bundle. Otherwise, the icon is built-in.
-    var isIconCustom: Bool = false
+    /// Use custom icon
+    public var isIconCustom: Bool = false
     
-    /// User specified notes to be displayed when the VM is selected.
-    var notes: String?
+    /// User selected icon
+    public var selectedCustomIconPath: URL?
     
-    /// Random identifier not accessible by the user.
-    var uuid: UUID = UUID()
+    /// Notes
+    public var notes: String?
+    
+    /// UUID
+    public var uuid: UUID = UUID()
     
     enum CodingKeys: String, CodingKey {
         case name = "Name"
@@ -41,50 +44,66 @@ struct UTMConfigurationInfo: Codable {
         case uuid = "UUID"
     }
     
-    init() {
+    public init() {
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
+        guard let dataURL = decoder.userInfo[.dataURL] as? URL else {
+            throw UTMConfigurationError.invalidDataURL
+        }
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(String.self, forKey: .name)
         isIconCustom = try values.decode(Bool.self, forKey: .isIconCustom)
         if isIconCustom {
-            guard let dataURL = decoder.userInfo[.dataURL] as? URL else {
-                throw UTMConfigurationError.invalidDataURL
+            if let iconName = try values.decodeIfPresent(String.self, forKey: .icon) {
+                iconURL = dataURL.appendingPathComponent(iconName)
+            } else {
+                isIconCustom = false
             }
-            let iconName = try values.decode(String.self, forKey: .icon)
-            iconURL = dataURL.appendingPathComponent(iconName)
-        } else if let iconName = try values.decodeIfPresent(String.self, forKey: .icon) {
-            iconURL = Self.builtinIcon(named: iconName)
+        }
+        if !isIconCustom {
+            if let iconName = try values.decodeIfPresent(String.self, forKey: .icon) {
+                iconURL = Self.builtinIcon(named: iconName)
+            }
         }
         notes = try values.decodeIfPresent(String.self, forKey: .notes)
         uuid = try values.decode(UUID.self, forKey: .uuid)
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
-        if isIconCustom, let iconURL = iconURL {
-            try container.encode(true, forKey: .isIconCustom)
-            try container.encode(iconURL.lastPathComponent, forKey: .icon)
-        } else if !isIconCustom, let name = iconURL?.deletingPathExtension().lastPathComponent {
-            try container.encode(false, forKey: .isIconCustom)
-            try container.encode(name, forKey: .icon)
+        if isIconCustom {
+            try container.encodeIfPresent(iconURL?.lastPathComponent, forKey: .icon)
         } else {
-            try container.encode(false, forKey: .isIconCustom)
+            try container.encodeIfPresent(Self.builtinIconName(from: iconURL), forKey: .icon)
         }
+        try container.encode(isIconCustom, forKey: .isIconCustom)
         try container.encodeIfPresent(notes, forKey: .notes)
         try container.encode(uuid, forKey: .uuid)
     }
     
-    static func builtinIcon(named name: String) -> URL? {
-        Bundle.main.url(forResource: name, withExtension: "png", subdirectory: "Icons")
+    private static func builtinIcon(named name: String) -> URL? {
+        if let url = Bundle.main.url(forResource: name, withExtension: "png", subdirectory: "Icons") {
+            return url
+        } else {
+            return Bundle.main.url(forResource: name, withExtension: "png")
+        }
+    }
+    
+    private static func builtinIconName(from url: URL?) -> String? {
+        if let url = url {
+            return url.deletingPathExtension().lastPathComponent
+        } else {
+            return nil
+        }
     }
 }
 
 // MARK: - Conversion of old config format
 
 extension UTMConfigurationInfo {
+    #if os(macOS)
     init(migrating oldConfig: UTMLegacyQemuConfiguration) {
         self.init()
         name = oldConfig.name
@@ -104,6 +123,7 @@ extension UTMConfigurationInfo {
             iconURL = Self.builtinIcon(named: name)
         }
     }
+    #endif
     
     #if os(macOS)
     init(migrating oldConfig: UTMLegacyAppleConfiguration, dataURL: URL) {

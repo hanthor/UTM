@@ -15,12 +15,14 @@
 //
 
 import Foundation
+#if os(macOS)
 import Metal
+#endif
 
 // MARK: QEMUConstant protocol
 
 /// A QEMU constant is a enum that can be generated externally
-protocol QEMUConstant: Codable, RawRepresentable, CaseIterable where RawValue == String, AllCases == [Self] {
+public protocol QEMUConstant: Codable, RawRepresentable, CaseIterable, Identifiable, CustomStringConvertible where RawValue == String, AllCases == [Self] {
     static var allRawValues: [String] { get }
     static var allPrettyValues: [String] { get }
     static var shownPrettyValues: [String] { get }
@@ -31,7 +33,7 @@ protocol QEMUConstant: Codable, RawRepresentable, CaseIterable where RawValue ==
     init?(rawValue: String)
 }
 
-extension QEMUConstant where Self: CaseIterable, AllCases == [Self] {
+public extension QEMUConstant where Self: CaseIterable, AllCases == [Self] {
     static var allRawValues: [String] {
         allCases.map { value in value.rawValue }
     }
@@ -49,7 +51,7 @@ extension QEMUConstant where Self: CaseIterable, AllCases == [Self] {
     }
 }
 
-extension QEMUConstant where Self: RawRepresentable, RawValue == String {
+public extension QEMUConstant where Self: RawRepresentable, RawValue == String {
     init(from decoder: Decoder) throws {
         let rawValue = try String(from: decoder)
         guard let representedValue = Self.init(rawValue: rawValue) else {
@@ -63,7 +65,7 @@ extension QEMUConstant where Self: RawRepresentable, RawValue == String {
     }
 }
 
-protocol QEMUDefaultConstant: QEMUConstant {
+public protocol QEMUDefaultConstant: QEMUConstant {
     static var `default`: Self { get }
 }
 
@@ -88,22 +90,22 @@ extension Optional where Wrapped: QEMUDefaultConstant {
 }
 
 /// Type erasure for a QEMU constant useful for serialization/deserialization
-struct AnyQEMUConstant: QEMUConstant, RawRepresentable {
-    static var allRawValues: [String] { [] }
+public struct AnyQEMUConstant: QEMUConstant, RawRepresentable {
+    public static var allRawValues: [String] { [] }
     
-    static var allPrettyValues: [String] { [] }
+    public static var allPrettyValues: [String] { [] }
     
-    static var allCases: [AnyQEMUConstant] { [] }
+    public static var allCases: [AnyQEMUConstant] { [] }
     
-    var prettyValue: String { rawValue }
+    public var prettyValue: String { rawValue }
     
-    let rawValue: String
+    public let rawValue: String
     
     init<C>(_ base: C) where C : QEMUConstant {
         self.rawValue = base.rawValue
     }
     
-    init?(rawValue: String) {
+    public init?(rawValue: String) {
         self.rawValue = rawValue
     }
 }
@@ -115,70 +117,72 @@ extension QEMUConstant {
 }
 
 extension AnyQEMUConstant: QEMUDefaultConstant {
-    static var `default`: AnyQEMUConstant {
+    public static var `default`: AnyQEMUConstant {
         AnyQEMUConstant(rawValue: "default")!
     }
 }
 
 // MARK: Enhanced type checking for generated constants
 
-protocol QEMUTarget: QEMUDefaultConstant {}
+public protocol QEMUTarget: QEMUDefaultConstant {}
 
 extension AnyQEMUConstant: QEMUTarget {}
 
-protocol QEMUCPU: QEMUDefaultConstant {}
+public protocol QEMUCPU: QEMUDefaultConstant {}
 
 extension AnyQEMUConstant: QEMUCPU {}
 
-protocol QEMUCPUFlag: QEMUConstant {}
+public protocol QEMUCPUFlag: QEMUConstant {}
 
 extension AnyQEMUConstant: QEMUCPUFlag {}
 
-protocol QEMUDisplayDevice: QEMUConstant {}
+public protocol QEMUDisplayDevice: QEMUConstant {}
 
 extension AnyQEMUConstant: QEMUDisplayDevice {}
 
-protocol QEMUNetworkDevice: QEMUConstant {}
+public protocol QEMUNetworkDevice: QEMUConstant {}
 
 extension AnyQEMUConstant: QEMUNetworkDevice {}
 
-protocol QEMUSoundDevice: QEMUConstant {}
+public protocol QEMUSoundDevice: QEMUConstant {}
 
 extension AnyQEMUConstant: QEMUSoundDevice {}
 
-protocol QEMUSerialDevice: QEMUConstant {}
+public protocol QEMUSerialDevice: QEMUConstant {}
 
 extension AnyQEMUConstant: QEMUSerialDevice {}
 
 // MARK: Display constants
 
-enum QEMUScaler: String, CaseIterable, QEMUConstant {
+public enum QEMUScaler: String, CaseIterable, QEMUConstant {
     case linear = "Linear"
     case nearest = "Nearest"
     
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .linear: return NSLocalizedString("Linear", comment: "UTMQemuConstants")
         case .nearest: return NSLocalizedString("Nearest Neighbor", comment: "UTMQemuConstants")
         }
     }
     
+    #if os(macOS)
     var metalSamplerMinMagFilter: MTLSamplerMinMagFilter {
         switch self {
         case .linear: return .linear
         case .nearest: return .nearest
         }
     }
+    #endif
 }
 
 // MARK: USB constants
 
-enum QEMUUSBBus: String, CaseIterable, QEMUConstant {
+public enum QEMUUSBBus: String, CaseIterable, QEMUConstant {
     case disabled = "Disabled"
     case usb2_0 = "2.0"
     case usb3_0 = "3.0"
     
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .disabled: return NSLocalizedString("Disabled", comment: "UTMQemuConstants")
         case .usb2_0: return NSLocalizedString("USB 2.0", comment: "UTMQemuConstants")
@@ -189,13 +193,13 @@ enum QEMUUSBBus: String, CaseIterable, QEMUConstant {
 
 // MARK: Network constants
 
-enum QEMUNetworkMode: String, CaseIterable, QEMUConstant {
+public enum QEMUNetworkMode: String, CaseIterable, QEMUConstant {
     case emulated = "Emulated"
     case shared = "Shared"
     case host = "Host"
     case bridged = "Bridged"
     
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .emulated: return NSLocalizedString("Emulated VLAN", comment: "UTMQemuConstants")
         case .shared: return NSLocalizedString("Shared Network", comment: "UTMQemuConstants")
@@ -205,11 +209,11 @@ enum QEMUNetworkMode: String, CaseIterable, QEMUConstant {
     }
 }
 
-enum QEMUNetworkProtocol: String, CaseIterable, QEMUConstant {
+public enum QEMUNetworkProtocol: String, CaseIterable, QEMUConstant {
     case tcp = "TCP"
     case udp = "UDP"
     
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .tcp: return NSLocalizedString("TCP", comment: "UTMQemuConstants")
         case .udp: return NSLocalizedString("UDP", comment: "UTMQemuConstants")
@@ -219,77 +223,61 @@ enum QEMUNetworkProtocol: String, CaseIterable, QEMUConstant {
 
 // MARK: Serial constants
 
-enum QEMUTerminalTheme: String, CaseIterable, QEMUDefaultConstant {
+public enum QEMUTerminalTheme: String, CaseIterable, QEMUDefaultConstant {
     case `default` = "Default"
     
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .`default`: return NSLocalizedString("Default", comment: "UTMQemuConstants")
         }
     }
 }
 
-struct QEMUTerminalFont: QEMUConstant {
+public struct QEMUTerminalFont: QEMUConstant {
     #if os(macOS)
-    static var allRawValues: [String] = {
+    public static var allRawValues: [String] = {
         NSFontManager.shared.availableFontNames(with: .fixedPitchFontMask) ?? []
     }()
     
-    static var allPrettyValues: [String] = {
+    public static var allPrettyValues: [String] = {
         allRawValues.map { name in
             NSFont(name: name, size: 1)?.displayName ?? name
         }
     }()
     #else
-    static var allRawValues: [String] = {
-        UIFont.familyNames.flatMap { family -> [String] in
-            guard let font = UIFont(name: family, size: 1) else {
-                return []
-            }
-            if font.fontDescriptor.symbolicTraits.contains(.traitMonoSpace) {
-                return UIFont.fontNames(forFamilyName: family)
-            } else {
-                return []
-            }
-        }
+    public static var allRawValues: [String] = {
+        ["Menlo", "Courier", "Courier New", "Monospace"]
     }()
     
-    static var allPrettyValues: [String] = {
-        allRawValues.map { name in
-            guard let font = UIFont(name: name, size: 1) else {
-                return name
-            }
-            let traits = font.fontDescriptor.symbolicTraits
-            let description: String
-            if traits.isSuperset(of: [.traitItalic, .traitBold]) {
-                description = NSLocalizedString("Italic, Bold", comment: "UTMQemuConstants")
-            } else if traits.contains(.traitItalic) {
-                description = NSLocalizedString("Italic", comment: "UTMQemuConstants")
-            } else if traits.contains(.traitBold) {
-                description = NSLocalizedString("Bold", comment: "UTMQemuConstants")
-            } else {
-                description = NSLocalizedString("Regular", comment: "UTMQemuConstants")
-            }
-            return String.localizedStringWithFormat(NSLocalizedString("%@ (%@)", comment: "QEMUConstant"), font.familyName, description)
-        }
+    public static var allPrettyValues: [String] = {
+        allRawValues
     }()
     #endif
     
-    static var allCases: [QEMUTerminalFont] {
-        Self.allRawValues.map { Self(rawValue: $0) }
+    public static var allCases: [QEMUTerminalFont] {
+        Self.allRawValues.compactMap { Self(rawValue: $0) }
     }
     
-    var prettyValue: String {
+    public var prettyValue: String {
         guard let index = Self.allRawValues.firstIndex(of: rawValue) else {
             return rawValue
         }
         return Self.allPrettyValues[index]
     }
     
-    let rawValue: String
+    public let rawValue: String
+
+    public init?(rawValue: String) {
+        self.rawValue = rawValue
+    }
 }
 
-enum QEMUSerialMode: String, CaseIterable, QEMUConstant {
+extension QEMUConstant {
+    public var id: String { rawValue }
+    public var description: String { prettyValue }
+}
+
+public enum QEMUSerialMode: String, CaseIterable, QEMUConstant {
     case builtin = "Terminal"
     case tcpClient = "TcpClient"
     case tcpServer = "TcpServer"
@@ -297,7 +285,7 @@ enum QEMUSerialMode: String, CaseIterable, QEMUConstant {
     case ptty = "Ptty"
     #endif
     
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .builtin: return NSLocalizedString("Built-in Terminal", comment: "UTMQemuConstants")
         case .tcpClient: return NSLocalizedString("TCP Client Connection", comment: "UTMQemuConstants")
@@ -309,13 +297,13 @@ enum QEMUSerialMode: String, CaseIterable, QEMUConstant {
     }
 }
 
-enum QEMUSerialTarget: String, CaseIterable, QEMUConstant {
+public enum QEMUSerialTarget: String, CaseIterable, QEMUConstant {
     case autoDevice = "Auto"
     case manualDevice = "Manual"
     case gdb = "GDB"
     case monitor = "Monitor"
     
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .autoDevice: return NSLocalizedString("Automatic Serial Device (max 4)", comment: "UTMQemuConstants")
         case .manualDevice: return NSLocalizedString("Manual Serial Device (advanced)", comment: "UTMQemuConstants")
@@ -327,7 +315,7 @@ enum QEMUSerialTarget: String, CaseIterable, QEMUConstant {
 
 // MARK: Drive constants
 
-enum QEMUDriveImageType: String, CaseIterable, QEMUConstant {
+public enum QEMUDriveImageType: String, CaseIterable, QEMUConstant {
     case none = "None"
     case disk = "Disk"
     case cd = "CD"
@@ -336,7 +324,7 @@ enum QEMUDriveImageType: String, CaseIterable, QEMUConstant {
     case linuxInitrd = "LinuxInitrd"
     case linuxDtb = "LinuxDTB"
     
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .none: return NSLocalizedString("None", comment: "UTMQemuConstants")
         case .disk: return NSLocalizedString("Disk Image", comment: "UTMQemuConstants")
@@ -349,7 +337,7 @@ enum QEMUDriveImageType: String, CaseIterable, QEMUConstant {
     }
 }
 
-enum QEMUDriveInterface: String, CaseIterable, QEMUConstant {
+public enum QEMUDriveInterface: String, CaseIterable, QEMUConstant {
     case none = "None"
     case ide = "IDE"
     case scsi = "SCSI"
@@ -361,7 +349,7 @@ enum QEMUDriveInterface: String, CaseIterable, QEMUConstant {
     case nvme = "NVMe"
     case usb = "USB"
     
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .none: return NSLocalizedString("None (Advanced)", comment: "UTMQemuConstants")
         case .ide: return NSLocalizedString("IDE", comment: "UTMQemuConstants")
@@ -379,12 +367,12 @@ enum QEMUDriveInterface: String, CaseIterable, QEMUConstant {
 
 // MARK: Sharing constants
 
-enum QEMUFileShareMode: String, CaseIterable, QEMUConstant {
+public enum QEMUFileShareMode: String, CaseIterable, QEMUConstant {
     case none = "None"
     case webdav = "WebDAV"
     case virtfs = "VirtFS"
     
-    var prettyValue: String {
+    public var prettyValue: String {
         switch self {
         case .none: return NSLocalizedString("None", comment: "UTMQemuConstants")
         case .webdav: return NSLocalizedString("SPICE WebDAV", comment: "UTMQemuConstants")

@@ -17,33 +17,33 @@
 import Foundation
 
 /// Basic hardware settings.
-struct UTMQemuConfigurationSystem: Codable {
+public struct UTMQemuConfigurationSystem: Codable {
     /// The QEMU architecture to emulate.
-    var architecture: QEMUArchitecture = .x86_64
+    public var architecture: QEMUArchitecture = .x86_64
     
     /// The QEMU machine target to emulate.
-    var target: any QEMUTarget = QEMUTarget_x86_64.q35
+    public var target: any QEMUTarget = QEMUTarget_x86_64.q35
     
     /// The QEMU CPU to emulate. Note that `default` will use the default CPU for the architecture.
-    var cpu: any QEMUCPU = QEMUCPU_x86_64.default
+    public var cpu: any QEMUCPU = QEMUCPU_x86_64.default
     
     /// Optional list of CPU flags to add to the target CPU.
-    var cpuFlagsAdd: [any QEMUCPUFlag] = []
+    public var cpuFlagsAdd: [any QEMUCPUFlag] = []
     
     /// Optional list of CPU flags to remove from the defaults of the target CPU. Parsed after `cpuFlagsAdd`.
-    var cpuFlagsRemove: [any QEMUCPUFlag] = []
+    public var cpuFlagsRemove: [any QEMUCPUFlag] = []
     
     /// Number of CPU cores to emulate. Set to 0 to match the number of available cores on the host.
-    var cpuCount: Int = 0
+    public var cpuCount: Int = 0
     
     /// Set to true to force emulation on multiple cores even when the results may be incorrect.
-    var isForceMulticore: Bool = false
+    public var isForceMulticore: Bool = false
     
     /// The RAM of the guest in MiB.
-    var memorySize: Int = 512
+    public var memorySize: Int = 512
     
     /// The JIT cache (code cache) in MiB.
-    var jitCacheSize: Int = 0
+    public var jitCacheSize: Int = 0
     
     enum CodingKeys: String, CodingKey {
         case architecture = "Architecture"
@@ -57,28 +57,25 @@ struct UTMQemuConfigurationSystem: Codable {
         case jitCacheSize = "JITCacheSize"
     }
     
-    init() {
+    public init() {
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         architecture = try values.decode(QEMUArchitecture.self, forKey: .architecture)
-        target = try values.decode(architecture.targetType, forKey: .target)
-        do {
-            cpu = try values.decode(architecture.cpuType, forKey: .cpu)
-        } catch UTMConfigurationError.invalidConfigurationValue(let value) {
-            logger.warning("Unable to decode CPU '\(value)', resetting to default CPU")
-            cpu = architecture.cpuType.default
-        }
+        target = try values.decode(AnyQEMUConstant.self, forKey: .target)
+        cpu = try values.decode(AnyQEMUConstant.self, forKey: .cpu)
         cpuFlagsAdd = try values.decode([AnyQEMUConstant].self, forKey: .cpuFlagsAdd)
         cpuFlagsRemove = try values.decode([AnyQEMUConstant].self, forKey: .cpuFlagsRemove)
         cpuCount = try values.decode(Int.self, forKey: .cpuCount)
         isForceMulticore = try values.decode(Bool.self, forKey: .isForceMulticore)
         memorySize = try values.decode(Int.self, forKey: .memorySize)
-        jitCacheSize = try values.decode(Int.self, forKey: .jitCacheSize)
+        if let jitCacheSize = try values.decodeIfPresent(Int.self, forKey: .jitCacheSize) {
+            self.jitCacheSize = jitCacheSize
+        }
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(architecture, forKey: .architecture)
         try container.encode(target.asAnyQEMUConstant(), forKey: .target)
@@ -95,6 +92,7 @@ struct UTMQemuConfigurationSystem: Codable {
 // MARK: - Conversion of old config format
 
 extension UTMQemuConfigurationSystem {
+    #if os(macOS)
     init(migrating oldConfig: UTMLegacyQemuConfiguration) {
         self.init()
         if let archStr = oldConfig.systemArchitecture, let arch = QEMUArchitecture(rawValue: archStr) {
@@ -138,4 +136,5 @@ extension UTMQemuConfigurationSystem {
             jitCacheSize = jitCacheNum.intValue
         }
     }
+    #endif
 }
